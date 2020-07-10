@@ -1,0 +1,64 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Online İşlemler API v1.0.1",
+    "version": "1.0",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "https://online.tim.org.tr/api/v1"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "",
+        "operationId": "post-login",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/account-LoginRequest"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "account-LoginRequest": {
+        "title": "LoginRequest",
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ],
+        "x-examples": {
+          "example-1": {
+            "usernamw": "user@tim.org.tr",
+            "password": "password"
+          }
+        },
+        "description": "Login olurken gönderilmesi gereken parametreler"
+      }
+    },
+    "securitySchemes": {}
+  }
+}
