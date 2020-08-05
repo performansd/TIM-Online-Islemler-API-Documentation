@@ -24,7 +24,7 @@
                   "type": "object",
                   "properties": {
                     "success": {
-                      "type": "string"
+                      "type": "boolean"
                     },
                     "data": {
                       "type": "object",
@@ -48,14 +48,25 @@
                           "type": "string"
                         }
                       }
-                    },
-                    "": {
-                      "type": "string"
                     }
                   }
                 },
                 "examples": {
-                  "example-1": {}
+                  "example-1": {
+                    "value": {
+                      "data": {
+                        "id": "03c5e326-a96c-4572-aea0-5d6490f60561",
+                        "email": "test@tim.org.tr",
+                        "fullName": "Tim",
+                        "accessToken": "1234",
+                        "refreshToken": "22222122",
+                        "expires": "2020-08-06T20:22:26.1313761Z"
+                      },
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
                 }
               }
             }
@@ -66,6 +77,17 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Erişim Yetkisi Hatası",
+                      "message": "Bu kaynağa erişim yetkiniz bulunmamaktadır. Bir hata olduğunu düşünüyorsanız lütfen sistem yöneticiniz ile irtibate geçiniz.",
+                      "type": "warning",
+                      "statusCode": 403
+                    }
+                  }
                 }
               }
             }
@@ -76,17 +98,31 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Bir Hata Oluştu",
+                      "message": "Hatalı kullanıcı adı ya da şifre girdiniz",
+                      "type": "danger",
+                      "statusCode": 422
+                    }
+                  }
                 }
               }
             }
           }
         },
-        "description": "",
+        "description": "Login olurken kullanılır.",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/account-LoginRequest"
+              },
+              "examples": {
+                "example-1": {}
               }
             }
           }
@@ -142,7 +178,21 @@
                   }
                 },
                 "examples": {
-                  "example-1": {}
+                  "example-1": {
+                    "value": {
+                      "data": {
+                        "id": "03c5e326-a96c-4572-aea0-5d6490f60561",
+                        "email": "test@tim.org.tr",
+                        "fullName": "Tim",
+                        "accessToken": "1234",
+                        "refreshToken": "22222122",
+                        "expires": "2020-08-06T20:22:26.1313761Z"
+                      },
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
                 }
               }
             }
@@ -153,12 +203,23 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Bir Hata Oluştu",
+                      "message": "Invalid Refresh Token",
+                      "type": "danger",
+                      "statusCode": 410
+                    }
+                  }
                 }
               }
             }
           }
         },
-        "description": "",
+        "description": "Token'nin yenilenmesini sağlar. ",
         "requestBody": {
           "content": {
             "application/json": {
@@ -170,154 +231,7 @@
         }
       }
     },
-    "/account/register": {
-      "post": {
-        "summary": "",
-        "operationId": "post-account-register",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity (WebDAV)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "regType": {
-                    "type": "string"
-                  },
-                  "taxNumber": {
-                    "type": "string"
-                  },
-                  "powerOfAttorneyExpireDate": {
-                    "type": "string"
-                  },
-                  "identityNumber": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "mobilePhone": {
-                    "type": "string"
-                  },
-                  "files": {
-                    "type": "array",
-                    "items": {}
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/account/send-approval-code": {
-      "get": {
-        "summary": "Your GET endpoint",
-        "tags": [],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "get-account-send-approval-code",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "c",
-            "description": "code",
-            "required": true
-          }
-        ]
-      }
-    },
-    "/account/register-complete": {
-      "post": {
-        "summary": "",
-        "operationId": "post-account-register-complete",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity (WebDAV)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/account-CompleteSignUpViewModel"
-              }
-            }
-          }
-        }
-      }
-    },
     "/account/forgot-password": {
-      "get": {
-        "summary": "Your GET endpoint",
-        "tags": [],
-        "responses": {},
-        "operationId": "get-account-forgot-password"
-      },
       "post": {
         "summary": "",
         "operationId": "post-account-forgot-password",
@@ -328,6 +242,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
                 }
               }
             }
@@ -338,6 +261,17 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Bir Hata Oluştu",
+                      "message": "İşleminizi gerçekleştirirken beklenmedik bir hata oluştu. Bu nedenle işleminiz tamamlanamamıştır.",
+                      "type": "danger",
+                      "statusCode": 422
+                    }
+                  }
                 }
               }
             }
@@ -350,16 +284,25 @@
                 "type": "object",
                 "properties": {
                   "email": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "e-posta gönderilecek e-posta adresi"
                   }
                 },
                 "required": [
                   "email"
                 ]
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "email": "test@test.com"
+                  }
+                }
               }
             }
           }
-        }
+        },
+        "description": "Şifremi unutma işleminde şifre sıfırlamak için mail gönderir."
       }
     },
     "/account/change-password": {
@@ -377,8 +320,6 @@
                 "examples": {
                   "example-1": {
                     "value": {
-                      "message": "message",
-                      "title": "title",
                       "success": true,
                       "type": "success",
                       "statusCode": 200
@@ -408,8 +349,7 @@
                       "title": "Bir Hata Oluştu",
                       "success": false,
                       "type": "danger",
-                      "statusCode": "422",
-                      "modelStateErrors": {}
+                      "statusCode": 422
                     }
                   }
                 }
@@ -440,18 +380,21 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
                 }
               }
             }
           },
-          "201": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                }
-              }
-            }
+          "417": {
+            "description": "Expectation Failed"
           },
           "422": {
             "description": "Unprocessable Entity (WebDAV)"
@@ -465,44 +408,8 @@
               }
             }
           }
-        }
-      }
-    },
-    "/account/validate-company/{companyType}/{taxNumber}": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "companyType",
-          "in": "path",
-          "required": true
         },
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "taxNumber",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Your GET endpoint",
-        "tags": [],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                }
-              }
-            }
-          }
-        },
-        "operationId": "get-account-validate-company-companyType-taxNumber"
+        "description": "Kullanıcı şifresinin oluşturulmasını sağlar."
       }
     },
     "/power-of-attorney/list": {
@@ -578,40 +485,7 @@
           }
         },
         "parameters": [],
-        "description": "Tüm vekaletnameleri listelemek için kullanılır."
-      }
-    },
-    "/action-log/{id}": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Your GET endpoint",
-        "tags": [],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                },
-                "examples": {
-                  "example-1": {}
-                }
-              }
-            }
-          }
-        },
-        "operationId": "get-action-log-id",
-        "description": "İstenen kaydın id si api endpointe yazılarak getirilir."
+        "description": "Vekaletnameleri listelemek için kullanılır."
       }
     },
     "/power-of-attorney/{id}": {
@@ -641,17 +515,17 @@
                     "value": {
                       "data": {
                         "expiresOn": "2020-12-30T21:00:00Z",
-                        "exporterCompanyId": "00000000-0000-0000-0000-000000000000",
+                        "exporterCompanyId": "31b8e5a3-9b00-4697-a4ea-1895073024e1",
                         "exporterCompanyName": "İhracatçı Firma Adı",
                         "exporterCompanyTaxNumber": "0000000000",
-                        "brokerCompanyId": "00000000-0000-0000-0000-000000000000",
+                        "brokerCompanyId": "31b8e5a3-9b00-4697-a4ea-1895073024e2",
                         "brokerCompanyName": "Gümrük Müşaviri Firma Adı",
                         "brokerCompanyTaxNumber": "1111111111",
                         "notaryName": "Noter Adı",
                         "notaryApprovalNo": "123456",
                         "notaryApprovalDate": "2010-12-30T21:00:00Z",
                         "fromEbirlik": false,
-                        "id": "00000000-0000-0000-0000-000000000000",
+                        "id": "31b8e5a3-9b00-4697-a4ea-1895073024ef",
                         "statusId": 6002,
                         "statusText": "Onaylandı",
                         "createdOn": "2020-07-13T15:04:03.8346699Z",
@@ -669,10 +543,31 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Erişim Yetkisi Hatası",
+                      "message": "Bu kaynağa erişim yetkiniz bulunmamaktadır. Bir hata olduğunu düşünüyorsanız lütfen sistem yöneticiniz ile irtibate geçiniz.",
+                      "type": "warning",
+                      "statusCode": 403
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "get-power-of-attorney-id",
-        "description": "İstenen kaydın id'si url'e yazılarak çağırılır."
+        "description": "İstenen kaydın id'si url'e yazılarak belirtilen kaydın bilgileri getirilir."
       }
     },
     "/power-of-attorney/request-complete": {
@@ -686,7 +581,8 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiResult"
-                }
+                },
+                "examples": {}
               }
             }
           },
@@ -696,6 +592,17 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Bir Hata Oluştu",
+                      "message": "İşleminizi gerçekleştirirken beklenmedik bir hata oluştu. Bu nedenle işleminiz tamamlanamamıştır.",
+                      "type": "danger",
+                      "statusCode": 422
+                    }
+                  }
                 }
               }
             }
@@ -734,15 +641,25 @@
                   },
                   "files": {
                     "type": "array",
+                    "description": "Yüklenen vekaletname dosyalarının id listesi",
                     "items": {
                       "type": "string"
                     }
+                  },
+                  "associationId": {
+                    "type": "string",
+                    "description": "Talebin onaya gönderileceği birlik id'si"
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Vekaletname id'si"
                   }
                 },
                 "required": [
-                  "exporterCompanyTaxNumber",
-                  "brokerCompanyTaxNumber ",
-                  "expiresOn"
+                  "expiresOn",
+                  "files",
+                  "associationId",
+                  "id"
                 ]
               },
               "examples": {
@@ -750,6 +667,23 @@
                   "value": {
                     "expiresOn": "2020-12-30T21:00:00Z",
                     "brokerCompanyTaxNumber": "0987654321",
+                    "exporterCompanyTaxNumber": null,
+                    "associationId": "34567890-9b00-4697-a4ea-1895073024ef",
+                    "notaryName": "John Doe",
+                    "notaryApprovalDate": "2019-12-30T21:00:00Z",
+                    "notaryApprovalNo": "1234",
+                    "files": [
+                      "123",
+                      "234"
+                    ]
+                  }
+                },
+                "example-2": {
+                  "value": {
+                    "id": "31b8e5a3-9b00-4697-a4ea-1895073024ef",
+                    "expiresOn": "2020-12-30T21:00:00Z",
+                    "associationId": "34567890-9b00-4697-a4ea-1895073024ef",
+                    "brokerCompanyTaxNumber": null,
                     "exporterCompanyTaxNumber": "0987654321",
                     "notaryName": "John Doe",
                     "notaryApprovalDate": "2019-12-30T21:00:00Z",
@@ -763,235 +697,7 @@
               }
             }
           },
-          "description": ""
-        }
-      }
-    },
-    "/branch-office-address-closing/request-complete": {
-      "parameters": [],
-      "post": {
-        "summary": "",
-        "operationId": "post-branch-office-address-closing-request-complete",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Unprocessable Entity (WebDAV)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                }
-              }
-            }
-          }
-        },
-        "description": "Şube kapanışı isteği göndermek için kullanılır.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "adress": {
-                    "type": "string"
-                  },
-                  "fileList": {
-                    "type": "array",
-                    "items": {}
-                  },
-                  "createdBy": {
-                    "type": "string"
-                  },
-                  "companyId": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/branch-office-address-closing/{id}": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Your GET endpoint",
-        "tags": [],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                },
-                "examples": {
-                  "example-1": {
-                    "value": {
-                      "data": {
-                        "id": "00000000-0000-0000-0000-000000000000",
-                        "name": "Şube adı",
-                        "address": "Kapanışı bildirilecek şube adresi"
-                      },
-                      "success": true,
-                      "type": "success",
-                      "statusCode": 200
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "get-branch-office-address-closing-id",
-        "description": "Şube kapanışı bilgilerini getirmek için kullanılır."
-      }
-    },
-    "/branch-office-address/{id}": {
-      "parameters": [
-        {
-          "schema": {
-            "type": "string"
-          },
-          "name": "id",
-          "in": "path",
-          "required": true
-        }
-      ],
-      "get": {
-        "summary": "Your GET endpoint",
-        "tags": [],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                },
-                "examples": {
-                  "example-1": {
-                    "value": {
-                      "data": {
-                        "id": "Firma Adres Idsi",
-                        "name": "Şube adı",
-                        "county": "Şube ilçe",
-                        "city": "Şube il",
-                        "district": "Şube Mahalle",
-                        "zipCode": "Posta Kodu",
-                        "address1": "Şube adresi"
-                      },
-                      "success": true,
-                      "type": "success",
-                      "statusCode": 200
-                    }
-                  },
-                  "example-2": {
-                    "value": {
-                      "data": {
-                        "id": "00000000-0000-0000-0000-000000000000",
-                        "name": "Şube-12",
-                        "county": "Osmangazi",
-                        "city": "Bursa",
-                        "district": "Şube Mahalle",
-                        "zipCode": "Posta Kodu",
-                        "address1": "Şube adresi"
-                      },
-                      "success": true,
-                      "type": "success",
-                      "statusCode": 200
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "get-branch-office-address-id",
-        "description": "Şube bilgilerini getirmek için kullanılır."
-      }
-    },
-    "/branch-office-address/request-complete": {
-      "post": {
-        "summary": "",
-        "operationId": "post-branch-office-address-request-complete",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResult"
-                }
-              }
-            }
-          }
-        },
-        "description": "Şube güncelleme ve ekleme talebi gönderme işlemi için kullanılır.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "city": {
-                    "type": "string"
-                  },
-                  "county": {
-                    "type": "string"
-                  },
-                  "district": {
-                    "type": "string"
-                  },
-                  "street": {
-                    "type": "string"
-                  },
-                  "country": {
-                    "type": "string"
-                  },
-                  "zipCode": {
-                    "type": "string"
-                  },
-                  "address1": {
-                    "type": "string"
-                  },
-                  "address2": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
+          "description": "Request gönderirken brokerCompanyTaxNumber veya exporterCompanyTaxNumber alanlarından sadece bir tanesi dolu olmalıdır. Eğer bu vekaletname talebini gönderen bir ihracatçı firma ise brokerCompanyTaxNumber(gümrük müşaviri vergi numarası) dolu olmalıdır. Eğer bu vekaletname talebini gönderen bir gümrük müşaviri ise exporterCompanyTaxNumber(ghracatçı firma vergi numarası)  dolu olmalıdır. Ayrıca yeni bir request gönderirken o vekaletname kaydına ait yeni bir id oluşturmak gerekir. (Yüklenen dosyalar ile ilişkilendirilebilmesi için id'yi oluşturmak gerekiyor.)\n"
         }
       }
     },
@@ -1006,12 +712,109 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list-DataSourceResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "Data": [
+                        {
+                          "Code": "TIM20-000000-00000",
+                          "RequestTypeId": 2006,
+                          "RequestTypeText": "Vekaletname Tanımlama Talebi",
+                          "ExporterCompanyId": "3db2afb7-6758-4d86-a2b9-4684dbb5c791",
+                          "ExporterCompanyName": "abc firması",
+                          "ExporterCompanyTaxNumber": "0000000000",
+                          "BrokerCompanyId": "99096fcb-d1a9-4369-868a-ef1377591de5",
+                          "BrokerCompanyName": "xyz Gümrük Müşavirliği",
+                          "BrokerCompanyTaxNumber": "1100000000",
+                          "RejectReason": null,
+                          "RequestedByName": "Talep Eden Ad Soyad",
+                          "RequestedByEmail": "test@test.com",
+                          "RequestUpdatedByName": null,
+                          "ApprovalData": {
+                            "name": "Talep Eden Ad Soyad",
+                            "taxNumber": "1100000000",
+                            "powerOfAttorneyExpireDate": "2020-08-25T00:00:00",
+                            "identityNumber": "00001111000",
+                            "email": "test@test.com",
+                            "mobilePhone": "0(555) 566 66 66",
+                            "files": [
+                              "123456-2e8b-1234-8459-9eecec131dcb"
+                            ],
+                            "powerOfAttorneyId": "2a418af0-76fa-4a91-a261-7289c7bfa517"
+                          },
+                          "Files": null,
+                          "FileList": null,
+                          "Id": "4a3d2ddd-7ccc-4996-9411-8c08102ebeec",
+                          "StatusId": 2102,
+                          "StatusText": "Onay Bekliyor",
+                          "CreatedOn": "2020-08-21T13:52:00.6989258Z",
+                          "CreatedBy": "dfda5505-5c10-45a5-b7aa-c238ff7aed35",
+                          "CreatedByUserFullname": "Oluşturan Ad Soyad",
+                          "ModifiedOn": "2020-08-21T13:52:00.6982213Z",
+                          "ModifiedBy": "dfda5505-5c10-45a5-b7aa-c238ff7aed35",
+                          "ModifiedByUserFullname": "Düzenleyen Ad Soyad"
+                        },
+                        {
+                          "Code": "TIM20-011111-11111",
+                          "RequestTypeId": 2010,
+                          "RequestTypeText": "Üye Bilgisi Güncelleme: Yeni Firma Temsilcisi",
+                          "ExporterCompanyId": "3db2afb7-6758-4d86-a2b9-4684dbb5c791",
+                          "ExporterCompanyName": "abc firması",
+                          "ExporterCompanyTaxNumber": "0000000000",
+                          "BrokerCompanyId": null,
+                          "BrokerCompanyName": null,
+                          "BrokerCompanyTaxNumber": null,
+                          "RejectReason": null,
+                          "RequestedByName": "Talep Eden Ad Soyad",
+                          "RequestedByEmail": "test@test.com",
+                          "RequestUpdatedByName": null,
+                          "ApprovalData": {
+                            "id": "00000000-0000-0000-0000-000000000000",
+                            "name": "Talep Eden Ad Soyad",
+                            "phone": "",
+                            "identityNumberForRepresentative": "01101011110",
+                            "jobTitle": "Diğer",
+                            "oldName": null,
+                            "oldIdentityNumber": null,
+                            "oldJobTitle": null,
+                            "assistantName": "Asistan Adı",
+                            "assistantPhone": "0(555) 555 55 55",
+                            "assistantEmail": "test22@test.com",
+                            "fileList": null,
+                            "files": [
+                              "a5906e38-bc0f-4946-878c-e1387882180f",
+                              "5b1887a7-7eff-4c61-8fd7-ba30e28b5954"
+                            ],
+                            "createdBy": "dfda5505-5c10-45a5-b7aa-c238ff7aed35",
+                            "companyId": "3db2afb7-6758-4d86-a2b9-4684dbb5c791",
+                            "identityNumber": "01020201000",
+                            "mobilePhone": "0(533) 555 55 55"
+                          },
+                          "Files": null,
+                          "FileList": null,
+                          "Id": "68e00856-bc7e-4b6c-84d1-ea7870855bbd",
+                          "StatusId": 2102,
+                          "StatusText": "Onay Bekliyor",
+                          "CreatedOn": "2020-07-20T13:24:14.8115627Z",
+                          "CreatedBy": "d363ee5e-644b-4d9f-97af-8a53f4d1f56d",
+                          "CreatedByUserFullname": "Oluşturan Ad Soyad",
+                          "ModifiedOn": "2020-07-20T13:24:14.8113903Z",
+                          "ModifiedBy": "d363ee5e-644b-4d9f-97af-8a53f4d1f56d",
+                          "ModifiedByUserFullname": "Düzenleyen Ad Soyad"
+                        }
+                      ],
+                      "Total": 2,
+                      "AggregateResults": null,
+                      "Errors": null
+                    }
+                  }
                 }
               }
             }
           }
         },
-        "description": "Tüm onay bekleyen talepleri listelemek için kullanılır."
+        "description": "Onay bekleyen talepleri listelemek için kullanılır."
       }
     },
     "/approval-request/set-status": {
@@ -1030,7 +833,8 @@
                   "example-1": {
                     "value": {
                       "success": true,
-                      "type": "success"
+                      "type": "success",
+                      "statusCode": 200
                     }
                   }
                 }
@@ -1043,6 +847,17 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Bir Hata Oluştu",
+                      "message": "Onaylamaya çalıştığınız talep sistemde bulunamadı. Talep başkası tarafından onaylanmış/reddedilmiş ya da silinmiş olabilir.",
+                      "type": "danger",
+                      "statusCode": 422
+                    }
+                  }
                 }
               }
             }
@@ -1065,7 +880,7 @@
                   },
                   "rejectReason": {
                     "type": "string",
-                    "description": "Talep reddedilirse bunun nedenini yazılmalı."
+                    "description": "Talep reddedilirse bunun nedeni yazılmalı."
                   }
                 },
                 "required": [
@@ -1076,13 +891,13 @@
               "examples": {
                 "example-1": {
                   "value": {
-                    "id": "00000000-0000-0000-0000-000000000000",
+                    "id": "8c8c2aba-6f91-4ec5-b595-17737471a948",
                     "approve": true
                   }
                 },
                 "example-2": {
                   "value": {
-                    "id": "00000000-0000-0000-0000-000000000000",
+                    "id": "8c8c2aba-6f91-4ec5-b595-17737471a948",
                     "approve": false,
                     "rejectReason": "Talep uygun değil"
                   }
@@ -1139,7 +954,25 @@
             }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Erişim Yetkisi Hatası",
+                      "message": "Bu kaynağa erişim yetkiniz bulunmamaktadır. Bir hata olduğunu düşünüyorsanız lütfen sistem yöneticiniz ile irtibate geçiniz.",
+                      "type": "warning",
+                      "statusCode": 403
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "get-company-get-company-info",
@@ -1244,7 +1077,25 @@
             }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Erişim Yetkisi Hatası",
+                      "message": "Bu kaynağa erişim yetkiniz bulunmamaktadır. Bir hata olduğunu düşünüyorsanız lütfen sistem yöneticiniz ile irtibate geçiniz.",
+                      "type": "warning",
+                      "statusCode": 403
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "get-company-get-branch-office",
@@ -1322,7 +1173,25 @@
             }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Erişim Yetkisi Hatası",
+                      "message": "Bu kaynağa erişim yetkiniz bulunmamaktadır. Bir hata olduğunu düşünüyorsanız lütfen sistem yöneticiniz ile irtibate geçiniz.",
+                      "type": "warning",
+                      "statusCode": 403
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "get-company-get-contact-info",
@@ -1467,7 +1336,25 @@
             }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Erişim Yetkisi Hatası",
+                      "message": "Bu kaynağa erişim yetkiniz bulunmamaktadır. Bir hata olduğunu düşünüyorsanız lütfen sistem yöneticiniz ile irtibate geçiniz.",
+                      "type": "warning",
+                      "statusCode": 403
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "get-company-get-company-manager",
@@ -1525,7 +1412,25 @@
             }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Erişim Yetkisi Hatası",
+                      "message": "Bu kaynağa erişim yetkiniz bulunmamaktadır. Bir hata olduğunu düşünüyorsanız lütfen sistem yöneticiniz ile irtibate geçiniz.",
+                      "type": "warning",
+                      "statusCode": 403
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "get-company-get-company-memberships",
@@ -1577,7 +1482,25 @@
             }
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Erişim Yetkisi Hatası",
+                      "message": "Bu kaynağa erişim yetkiniz bulunmamaktadır. Bir hata olduğunu düşünüyorsanız lütfen sistem yöneticiniz ile irtibate geçiniz.",
+                      "type": "warning",
+                      "statusCode": 403
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "get-company-get-debts",
@@ -1593,11 +1516,29 @@
             "description": "OK"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Erişim Yetkisi Hatası",
+                      "message": "Bu kaynağa erişim yetkiniz bulunmamaktadır. Bir hata olduğunu düşünüyorsanız lütfen sistem yöneticiniz ile irtibate geçiniz.",
+                      "type": "warning",
+                      "statusCode": 403
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "get-document-request-download",
-        "description": "{id} parametresine belgenin idsi girilerek belirtilen belgenin indirilmesi sağlanır. Cevap olarak FileStreamResult döndürür."
+        "description": "{id} parametresine belgenin idsi girilerek belirtilen belgenin indirilmesi sağlanır. Cevap olarak dosya döndürür."
       },
       "parameters": [
         {
@@ -1610,7 +1551,7 @@
         }
       ]
     },
-    "/document-request/create-document/{documentType}?associationId={associationId}&period={period}": {
+    "/document-request/create-document/{documentType}?associationId={associationId}&period={period}&lang={lang}": {
       "parameters": [
         {
           "schema": {
@@ -1635,6 +1576,14 @@
           "name": "period",
           "in": "path",
           "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "lang",
+          "in": "path",
+          "required": true
         }
       ],
       "get": {
@@ -1652,7 +1601,7 @@
                   "example-1": {
                     "value": {
                       "data": {
-                        "code": "TIM20-080423-22089",
+                        "code": "TIM20-000000-11111",
                         "documentTypeId": 5001,
                         "documentTypeText": "Üyelik Belgesi",
                         "exporterCompanyId": "8c071561-9ad2-dca2-e040-a8c0e7014ad3",
@@ -1696,7 +1645,7 @@
                       "title": "Bir Hata Oluştu",
                       "message": "Belge oluşturma servisinde bir hata oluştu.",
                       "type": "danger",
-                      "statusCode": 500
+                      "statusCode": 400
                     }
                   }
                 }
@@ -1726,7 +1675,7 @@
           }
         },
         "operationId": "get-document-request-create-document-documentType",
-        "description": "Yeni bir belge oluşturmak için kullanılır. {documentType} yerine hangi belge türü oluşturulacak ise onun int tipinde değeri yazılır. Üyelik belgesi(5001), Üye Bilgi Yazısı(5002), Performans ve Güvenilirlik Belgesi(5003), 3 Yıllık İhracat Raporu(5004). Eğer Üyelik bilgi yazısı veya performans belgesi ise {associationId} değeri gönderilmelidir. \nEğer performans belgesi ise period değeri:\n-2 yıl önce bulunduğumuz ayın 1'i (01.08.2018)\n-2 yıl 1 ay önceki ayın 1'i (01.07.2018)\n-2 yıl 2 ay önceki ayın 1'i (01.06.2018)\ndeğerleri belgenin başlangıç tarihi parantez şeklindeki hali ile gönderilir."
+        "description": "Yeni bir belge oluşturmak için kullanılır. {documentType} yerine hangi belge türü oluşturulacak ise onun int tipinde değeri yazılır. Girilmesi zorunludur.\n-Üyelik belgesi -> 5001, \n-Üye Bilgi Yazısı -> 5002, \n-Performans ve Güvenilirlik Belgesi -> 5003,\n-3 Yıllık İhracat Raporu -> 5004.\n\nEğer Üyelik bilgi yazısı ise {associationId} ve {lang} değerleri gönderilmelidir. {lang} tr veya en olmalıdır.\n\nPerformans belgesi ise {associationId} ve {period} değeri gönderilmelidir. \nPeriod değerleri (Her ay değişir. Ağustos 2020 ayını baz alırsak aşağıdaki değerler gönderilmelidir.):\n-2 yıl önce bulunduğumuz ayın 1'i (01.08.2018)\n-2 yıl 1 ay önceki ayın 1'i (01.07.2018)\n-2 yıl 2 ay önceki ayın 1'i (01.06.2018)\ndeğerleri belgenin başlangıç tarihi parantez şeklindeki hali ile gönderilir."
       }
     },
     "/document-request/associations-menu": {
@@ -1740,6 +1689,38 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "data": [
+                        {
+                          "disabled": false,
+                          "group": null,
+                          "selected": false,
+                          "text": "Uludağ İhracatçı Birlikleri Genel Sekreterliği",
+                          "value": "d4b5a93c-7c26-4860-beaf-911056f36f58"
+                        },
+                        {
+                          "disabled": false,
+                          "group": null,
+                          "selected": false,
+                          "text": "İstanbul Maden ve Metaller İhracatçı Birlikleri Genek Sekreterliği",
+                          "value": "b56947b8-f54d-4e8c-94a5-c8d2265e3045"
+                        },
+                        {
+                          "disabled": false,
+                          "group": null,
+                          "selected": false,
+                          "text": "Orta Anadolu İhracatçı Birlikleri Genel Sekreterliği",
+                          "value": "3d622ab4-0241-4925-9ec9-349089cb3292"
+                        }
+                      ],
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
                 }
               }
             }
@@ -1749,9 +1730,9 @@
       }
     },
     "/document-request/list": {
-      "get": {
-        "summary": "Your GET endpoint",
-        "tags": [],
+      "post": {
+        "summary": "",
+        "operationId": "post-document-request-list",
         "responses": {
           "200": {
             "description": "OK",
@@ -1759,13 +1740,89 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/list-DataSourceResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "Data": [
+                        {
+                          "Code": "TIM20-072014-42802",
+                          "DocumentTypeId": 5002,
+                          "DocumentTypeText": "Üyelik Bilgi Yazısı",
+                          "ExporterCompanyId": "d7a2ed7a-2290-4262-9e97-20ec57f8e0bf",
+                          "ExporterCompanyName": "xyz firması",
+                          "ExporterCompanyTaxNumber": "0000000222",
+                          "BrokerCompanyId": null,
+                          "BrokerCompanyName": null,
+                          "BrokerCompanyTaxNumber": null,
+                          "Description": "[ TR ] - Otomotiv Endüstrisi İhracatçıları Birliği",
+                          "NotAllowedAssociationNames": null,
+                          "Id": "d1d8bbca-afe6-0011-4444-5f7563e6acad",
+                          "StatusId": 1,
+                          "StatusText": "Aktif",
+                          "CreatedOn": "2020-07-20T11:42:31.0136185Z",
+                          "CreatedBy": "d7a2ed7a-2290-4262-9e97-20ec57f8e0bf",
+                          "CreatedByUserFullname": "Oluşturan Ad Soyad",
+                          "ModifiedOn": "2020-07-20T11:42:32.9912014Z",
+                          "ModifiedBy": "d7a2ed7a-2290-4262-9e97-20ec57f8e0bf",
+                          "ModifiedByUserFullname": "Düzenleyen Ad Soyad"
+                        },
+                        {
+                          "Code": "TIM20-072014-41517",
+                          "DocumentTypeId": 5001,
+                          "DocumentTypeText": "Üyelik Belgesi",
+                          "ExporterCompanyId": "d7a2ed7a-2290-4262-9e97-20ec57f8e0bf",
+                          "ExporterCompanyName": "xyz firması",
+                          "ExporterCompanyTaxNumber": "0000000222",
+                          "BrokerCompanyId": null,
+                          "BrokerCompanyName": null,
+                          "BrokerCompanyTaxNumber": null,
+                          "Description": "",
+                          "NotAllowedAssociationNames": null,
+                          "Id": "75f1a411-4668-4cbb-bc11-a51aa0f0d200",
+                          "StatusId": 1,
+                          "StatusText": "Aktif",
+                          "CreatedOn": "2020-07-20T11:41:50.3620579Z",
+                          "CreatedBy": "a23df755-45e9-438b-b77d-dfba2e94a2af",
+                          "CreatedByUserFullname": "Oluşturan Ad Soyad",
+                          "ModifiedOn": "2020-07-20T11:41:52.5548771Z",
+                          "ModifiedBy": "a23df755-45e9-438b-b77d-dfba2e94a2af",
+                          "ModifiedByUserFullname": "Düzenleyen Ad Soyad"
+                        },
+                        {
+                          "Code": "TIM20-072014-36415",
+                          "DocumentTypeId": 5001,
+                          "DocumentTypeText": "Üyelik Belgesi",
+                          "ExporterCompanyId": "d7a2ed7a-2290-4262-9e97-20ec57f8e0bf",
+                          "ExporterCompanyName": "xyz firması",
+                          "ExporterCompanyTaxNumber": "0000000222",
+                          "BrokerCompanyId": null,
+                          "BrokerCompanyName": null,
+                          "BrokerCompanyTaxNumber": null,
+                          "Description": "",
+                          "NotAllowedAssociationNames": null,
+                          "Id": "a23df755-45e9-438b-b77d-dfba2e94a2af",
+                          "StatusId": 1,
+                          "StatusText": "Aktif",
+                          "CreatedOn": "2020-07-20T11:36:34.0356707Z",
+                          "CreatedBy": "a23df755-45e9-438b-b77d-dfba2e94a2af",
+                          "CreatedByUserFullname": "Oluşturan Ad Soyad",
+                          "ModifiedOn": "2020-07-20T11:36:36.3882274Z",
+                          "ModifiedBy": "a23df755-45e9-438b-b77d-dfba2e94a2af",
+                          "ModifiedByUserFullname": "Düzenleyen Ad Soyad"
+                        }
+                      ],
+                      "Total": 3,
+                      "AggregateResults": null,
+                      "Errors": null
+                    }
+                  }
                 }
               }
             }
           }
         },
-        "operationId": "get-document-request-list",
-        "description": ""
+        "description": "Belgeleri listelemek için kullanılır."
       }
     },
     "/file/get-info/{id}": {
@@ -1779,15 +1836,75 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "data": {
+                        "id": "f9c66002-89f4-41a8-9c35-c88272075201",
+                        "name": "f9c66002-89f4-41a8-9c35-c88272075201",
+                        "realFileName": "test.jpg",
+                        "extension": ".jpg",
+                        "contentType": "image/jpeg",
+                        "size": 13902,
+                        "uploadError": null,
+                        "ownerId": "849034c7-9bd2-45fc-a063-ed851b24b030",
+                        "fileType": 1003,
+                        "isTemp": false,
+                        "metadata": null,
+                        "content": null,
+                        "createdOn": "2020-04-22T10:54:02.1954924Z"
+                      },
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
                 }
               }
             }
           },
-          "400": {
-            "description": "Bad Request"
-          },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Erişim Yetkisi Hatası",
+                      "message": "Bu kaynağa erişim yetkiniz bulunmamaktadır. Bir hata olduğunu düşünüyorsanız lütfen sistem yöneticiniz ile irtibate geçiniz.",
+                      "type": "warning",
+                      "statusCode": 403
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Kayıt Bulunamadı",
+                      "message": "Ulaşmaya çalıştığınız kaynak bulunamadı. Lütfen erişmeye çalıştığınız adresi kontrol edip tekrar deneyiniz.",
+                      "type": "warning",
+                      "statusCode": 404
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "operationId": "get-file-get-info",
@@ -1803,6 +1920,873 @@
           "required": true
         }
       ]
+    },
+    "/file/get-info": {
+      "post": {
+        "summary": "",
+        "operationId": "post-file-get-info",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "data": [
+                        {
+                          "id": "b8a88aca-eeed-4044-909e-25934a4cba73",
+                          "name": "b8a88aca-eeed-4044-909e-25934a4cba73",
+                          "realFileName": "test.jpg",
+                          "extension": ".jpg",
+                          "contentType": "image/jpeg",
+                          "size": 13902,
+                          "uploadError": null,
+                          "ownerId": "3490ecf7-9bd2-45fc-a063-ed851b24rrrd",
+                          "fileType": 1003,
+                          "isTemp": false,
+                          "metadata": null,
+                          "content": null,
+                          "createdOn": "2020-04-22T10:54:02.1954924Z"
+                        },
+                        {
+                          "id": "2c00595e-8262-4afa-ba45-5d0bf6faa174",
+                          "name": "2c00595e-8262-4afa-ba45-5d0bf6faa174",
+                          "realFileName": "test.jpg",
+                          "extension": ".jpg",
+                          "contentType": "image/jpeg",
+                          "size": 13902,
+                          "uploadError": null,
+                          "ownerId": "3490ecf7-9bd2-45fc-a063-ed851b24rrrd",
+                          "fileType": 1003,
+                          "isTemp": false,
+                          "metadata": null,
+                          "content": null,
+                          "createdOn": "2020-04-22T10:54:02.1954924Z"
+                        }
+                      ],
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "id listesi gönderilerek o id'lere ait dosyaların bilgilerini getirir.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "description": "File id listesi",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": [
+                    "b8a88aca-eeed-4044-909e-25934a4cba73",
+                    "2c00595e-8262-4afa-ba45-5d0bf6faa174"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/file/download/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Erişim Yetkisi Hatası",
+                      "message": "Bu kaynağa erişim yetkiniz bulunmamaktadır. Bir hata olduğunu düşünüyorsanız lütfen sistem yöneticiniz ile irtibate geçiniz.",
+                      "type": "warning",
+                      "statusCode": 403
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-file-download-id",
+        "description": "Dosya indirmek için kullnaılır. {id} yerine indirilmek istenen dosyanın id'si yazılır. Cevap olarak dosya döndürür."
+      }
+    },
+    "/file/upload?ownerId={ownerId}&fileType={fileType]": {
+      "post": {
+        "summary": "",
+        "operationId": "post-file-upload",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "id": "837d2bde-4c58-4tyh-b426-81e15cfca999",
+                        "name": "837d2bde4c584tyhb42681e15cfca999",
+                        "realFileName": "test.jpg",
+                        "extension": ".jpg",
+                        "contentType": "image/jpeg",
+                        "size": 4624,
+                        "uploadError": null,
+                        "ownerId": "weftg56h-7660-4586-a486-c7dc2b63e1f8",
+                        "fileType": 1003,
+                        "isTemp": false,
+                        "metadata": null,
+                        "content": null,
+                        "createdOn": "2020-08-05T07:55:41.4183355Z"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        },
+        "description": "Dosya yüklemek için kullanılır. Parametre olarak ownerId o dosyalar hangi kayda ait ise o kaydın id'sidir. Örneğin bir vekaletname dosyası ise o vekaletname  kaydının id'si buradaki owner id'dir.fileType ise yüklenen dosyanın tipidir. Dosya tipinin int değerleri aşağıdaki gibidir.\n\nİmza Sirküleri = 1001,\nBaşvuru Dilekçesi = 1002,\nVekaletname = 1003,\nTicaret Sicil Gazetesi = 1004,\nVergi Levhası = 1005\n\nFormdata'dan IFormFile tipinde liste olarak dosyalar gönderilir.\n"
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "ownerId",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/green-password": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "data": 2,
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-green-password",
+        "description": "Firmanın son 3 yıllık ihracat rakamına göre kaç adet yeşil pasaport alacağı bilgisini getirir. Dönen cevaptaki data değeridir."
+      }
+    },
+    "/get-export-monthly?exportType={exportType}": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "data": "378.817",
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-get-export-monthly",
+        "description": "Firmanın geçen ayki ihracat değerini getirir. İhracatçı veya imalatçı olarak ihracat değerleri alınır. Parametre olarak gönderilen {exportType} değeri 'manufacturer' veya 'exporter' olmalıdır."
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "exportType",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/get-export-monthly-now?exportType={exportType}": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "data": "38.817",
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-get-export-monthly-now",
+        "description": "Firmanın bu ayki ihracat değerini getirir. İhracatçı veya imalatçı olarak ihracat değerleri alınır. Parametre olarak gönderilen {exportType} değeri 'manufacturer' veya 'exporter' olmalıdır."
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "exportType",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/get-export-yearly?exportType={exportType}&filter={filter}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "exportType",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "filter",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "data": "2.373.142",
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-get-export-yearly?exportType=-exportType-&filter=-filter",
+        "description": "Girilen yıla göre toplam ihracat değerini getirir. İhracatçı veya imalatçı olarak ihracat değerleri alınır. Parametre olarak gönderilen {exportType} değeri 'manufacturer' veya 'exporter' olmalıdır. {filter} değeri ise yıl değeridir. filter değerleri 1, -1, -2, -3 değerlerinden biri olmalıdır. Yıl karşılıkları aşağıdaki gibidir.\n2020 -> 1,\n2019 -> -1,\n2018 -> -2,\n2017 -> -3"
+      }
+    },
+    "/get-kb-price?exportType={exportType}&filter={filter}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "exportType",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "filter",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "data": "4,88",
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-get-kb-price?exportType=-exportType-&filter=-filter",
+        "description": "Firmanın Kg Birim Ürün Satış Fiyatını getirmek için kullanılır.İhracatçı veya imalatçı olarak ihracat değerleri alınır. Parametre olarak gönderilen {exportType} değeri 'manufacturer' veya 'exporter' olmalıdır. {filter} değeri ise yıl değeridir. filter değerleri 1, -1, -2, -3 değerlerinden biri olmalıdır. Yıl karşılıkları aşağıdaki gibidir.\n2020 -> 1,\n2019 -> -1,\n2018 -> -2,\n2017 -> -3"
+      }
+    },
+    "/member/list": {
+      "post": {
+        "summary": "",
+        "operationId": "post-member-list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list-DataSourceResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "Data": [
+                        {
+                          "Name": "abc Firması",
+                          "TaxNumber": "1152631123",
+                          "TaxRegistrationOffice": "NILÜFER VERGİ DAİRESİ",
+                          "ChamberOfCommerce": null,
+                          "CommercialRegistrationNumber": null,
+                          "CompanyTypeId": 3001,
+                          "Category": "DIGER",
+                          "CompanyTypeText": "İhracatçı",
+                          "CompanyKind": "LIMITED",
+                          "LastExportStatsSync": null,
+                          "Id": "36ec9e66-b8a3-4b38-9fcd-53cb940c1d28",
+                          "StatusId": 1,
+                          "StatusText": "Aktif",
+                          "CreatedOn": "2020-07-09T12:03:06.3502655Z",
+                          "CreatedBy": "10000000-0000-0000-0000-000000000000",
+                          "CreatedByUserFullname": null,
+                          "ModifiedOn": "2020-07-09T14:36:19.2769738Z",
+                          "ModifiedBy": "10000000-0000-0000-0000-000000000000",
+                          "ModifiedByUserFullname": "Anonim Kullanıcı"
+                        },
+                        {
+                          "Name": "xyz Firması",
+                          "TaxNumber": "1152631122",
+                          "TaxRegistrationOffice": "INEGÖL VERGİ DAİRESİ",
+                          "ChamberOfCommerce": "INEGOL",
+                          "CommercialRegistrationNumber": "9436",
+                          "CompanyTypeId": 3001,
+                          "Category": "DIGER",
+                          "CompanyTypeText": "İhracatçı",
+                          "CompanyKind": "LIMITED",
+                          "LastExportStatsSync": "2020-07-24T19:37:12.4213452Z",
+                          "Id": "db5b8697-719d-44f0-8185-5c1c3cb27eb2",
+                          "StatusId": 1,
+                          "StatusText": "Aktif",
+                          "CreatedOn": "2020-07-09T12:03:07.213929Z",
+                          "CreatedBy": "10000000-0000-0000-0000-000000000000",
+                          "CreatedByUserFullname": null,
+                          "ModifiedOn": "2020-07-09T15:04:41.2324604Z",
+                          "ModifiedBy": "10000000-0000-0000-0000-000000000000",
+                          "ModifiedByUserFullname": "Anonim Kullanıcı"
+                        }
+                      ],
+                      "Total": 2,
+                      "AggregateResults": null,
+                      "Errors": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Üye firmaları listelemek için kullanılır."
+      }
+    },
+    "/power-of-attorney/getFiles/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "id": "957175fe-4358-4cd1-99c2-0de415eeba6a",
+                        "name": "957175fe43584cd199c20de415eeba6a",
+                        "realFileName": "ay.jpg",
+                        "extension": ".jpg",
+                        "contentType": "image/jpeg",
+                        "size": 4624,
+                        "uploadError": null,
+                        "ownerId": "90fa6485-b81f-4223-9b7c-182630d93fa7",
+                        "fileType": 1003,
+                        "isTemp": false,
+                        "metadata": null,
+                        "content": "/APDUREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBE==",
+                        "createdOn": "2020-07-16T08:50:04.644913Z"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-power-of-attorney-getFiles-id",
+        "description": "{id} değeri yerine vekaletname kaydının id'si yazıldığında o vekaletnameye ait dosyaların bilgilerini getirir."
+      }
+    },
+    "/user/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "data": {
+                        "fullName": "Ad Soyad",
+                        "identityNumber": "11111111111",
+                        "statusId": 1,
+                        "statusText": "Aktif",
+                        "lastLoginDate": "2020-07-27T07:35:11.4228625Z",
+                        "shouldChangePassword": true,
+                        "associationId": null,
+                        "associationName": null,
+                        "selectedCompanyId": "31b8e5a3-9b00-4697-a4ea-1895073024ef",
+                        "companyName": null,
+                        "companyType": 0,
+                        "userTypeId": 4006,
+                        "branchOffice": null,
+                        "userTypeText": "Firma Kullanıcısı",
+                        "createdOn": "2020-06-03T16:11:01.0303386Z",
+                        "createdBy": "10000000-0000-0000-0000-000000000000",
+                        "createdByUserFullname": "Anonim Kullanıcı",
+                        "modifiedOn": "2020-06-03T16:11:01.0303399Z",
+                        "modifiedBy": "10000000-0000-0000-0000-000000000000",
+                        "modifiedByUserFullname": "Anonim Kullanıcı",
+                        "password": null,
+                        "newPassword": null,
+                        "id": "c32c79f6-e46a-4a87-9a81-5bfda763f322",
+                        "userName": "test@tim.org.tr",
+                        "normalizedUserName": "TEST@TIM.ORG.TR",
+                        "email": "test@tim.org.tr",
+                        "normalizedEmail": "TEST@TIM.ORG.TR",
+                        "emailConfirmed": false,
+                        "passwordHash": null,
+                        "securityStamp": null,
+                        "concurrencyStamp": "1e39efdc-0919-48b1-96e5-153d24b56166",
+                        "phoneNumber": "0(533) 727 36 39",
+                        "phoneNumberConfirmed": false,
+                        "twoFactorEnabled": false,
+                        "lockoutEnd": null,
+                        "lockoutEnabled": false,
+                        "accessFailedCount": 0
+                      },
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-user-id",
+        "description": "Kullanıcı id'si {id} alanına girilerek kullanıcının bilgileri getirilir."
+      }
+    },
+    "/user/list": {
+      "post": {
+        "summary": "",
+        "operationId": "post-user-list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/list-DataSourceResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "Data": [
+                        {
+                          "FullName": "Ad Soyad",
+                          "IdentityNumber": "00023654855",
+                          "StatusId": 1,
+                          "StatusText": "Aktif",
+                          "LastLoginDate": "2020-07-10T13:44:13.4237357Z",
+                          "ShouldChangePassword": true,
+                          "AssociationId": null,
+                          "AssociationName": null,
+                          "SelectedCompanyId": "1e39efdc-0919-48b1-96e5-153d24b56166",
+                          "CompanyName": null,
+                          "CompanyType": 0,
+                          "UserTypeId": 4007,
+                          "BranchOffice": null,
+                          "UserTypeText": "Gümrük Müşaviri Kullanıcısı",
+                          "CreatedOn": "2020-07-10T13:21:31.9442131Z",
+                          "CreatedBy": "10000000-0000-0000-0000-000000000000",
+                          "CreatedByUserFullname": "Adı Soyadı",
+                          "ModifiedOn": "2020-07-10T13:21:31.9443453Z",
+                          "ModifiedBy": "10000000-0000-0000-0000-000000000000",
+                          "ModifiedByUserFullname": "Adı Soyadı",
+                          "Password": null,
+                          "NewPassword": null,
+                          "Id": "dcb7c6ea-8533-4d49-8e1d-da92000c2154",
+                          "UserName": "test@gmail.com",
+                          "NormalizedUserName": "test@GMAIL.COM",
+                          "Email": "test@gmail.com",
+                          "NormalizedEmail": "test@GMAIL.COM",
+                          "EmailConfirmed": false,
+                          "PasswordHash": null,
+                          "SecurityStamp": null,
+                          "ConcurrencyStamp": "2897863d-35e5-46f2-a610-90545c8fe967",
+                          "PhoneNumber": "0(545) 555 55 55",
+                          "PhoneNumberConfirmed": false,
+                          "TwoFactorEnabled": false,
+                          "LockoutEnd": null,
+                          "LockoutEnabled": false,
+                          "AccessFailedCount": 0
+                        },
+                        {
+                          "FullName": "Kullanıcı 2",
+                          "IdentityNumber": "41561232544",
+                          "StatusId": 1,
+                          "StatusText": "Aktif",
+                          "LastLoginDate": null,
+                          "ShouldChangePassword": true,
+                          "AssociationId": null,
+                          "AssociationName": null,
+                          "SelectedCompanyId": null,
+                          "CompanyName": null,
+                          "CompanyType": 0,
+                          "UserTypeId": 4006,
+                          "BranchOffice": null,
+                          "UserTypeText": "Firma Kullanıcısı",
+                          "CreatedOn": "2020-06-29T16:19:06.3877149Z",
+                          "CreatedBy": "20000000-0000-0000-1111-000000000001",
+                          "CreatedByUserFullname": "Sistem Yöneticisi",
+                          "ModifiedOn": "2020-06-29T16:19:06.3877163Z",
+                          "ModifiedBy": "20000000-0000-0000-1111-000000000001",
+                          "ModifiedByUserFullname": "Sistem Yöneticisi",
+                          "Password": null,
+                          "NewPassword": null,
+                          "Id": "e39c21ab-d297-4946-9a76-66caa66b04a0",
+                          "UserName": "test@hotmail.com",
+                          "NormalizedUserName": "TEST@HOTMAIL.COM",
+                          "Email": "test@hotmail.com",
+                          "NormalizedEmail": "TEST@HOTMAIL.COM",
+                          "EmailConfirmed": false,
+                          "PasswordHash": null,
+                          "SecurityStamp": null,
+                          "ConcurrencyStamp": "b9969657-da4f-4b9d-b8ca-aba31451dad7",
+                          "PhoneNumber": "0(555) 999 99 99",
+                          "PhoneNumberConfirmed": false,
+                          "TwoFactorEnabled": false,
+                          "LockoutEnd": null,
+                          "LockoutEnabled": false,
+                          "AccessFailedCount": 0
+                        }
+                      ],
+                      "Total": 2,
+                      "AggregateResults": null,
+                      "Errors": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Kullanıcı listesini getirmek için kullanılır."
+      }
+    },
+    "/user/update-status": {
+      "post": {
+        "summary": "",
+        "operationId": "post-user-update-status",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "message",
+                      "title": "title",
+                      "success": true,
+                      "type": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity (WebDAV)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "message": "Entity can not be null",
+                      "title": "Entity can not be null",
+                      "success": true,
+                      "type": "success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                }
+              }
+            }
+          }
+        },
+        "description": "Kullanıcıyı aktif yada pasif eder.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Durumu değiştirilecek kullanıcının id'si"
+                  },
+                  "statusId": {
+                    "type": "integer",
+                    "description": "Kullanıcının integer status değeri\nAktif - 1\nPasif - 2"
+                  }
+                },
+                "required": [
+                  "id",
+                  "statusId"
+                ]
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "id": "b9969657-da4f-4b9d-b8ca-aba31451dad7",
+                    "statusId": 2
+                  }
+                },
+                "example-2": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/headquarters-address/{id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "data": {
+                        "id": "955afc3a-f45f-49aa-9193-8c8f8208e34d",
+                        "city": "BURSA",
+                        "county": "OSMANGAZİ",
+                        "district": null,
+                        "street": null,
+                        "country": null,
+                        "zipCode": "16010",
+                        "address1": "NO:86 16010 OSMANGAZİ, BURSA, TÜRKIYE",
+                        "name": null,
+                        "address2": null,
+                        "oldAddress": null,
+                        "oldCity": null,
+                        "oldCounty": null,
+                        "oldName": null,
+                        "address": "NO:86 16010 OSMANGAZİ, BURSA, TÜRKIYE 16010 OSMANGAZİ, BURSA, ",
+                        "fileList": null,
+                        "files": null,
+                        "createdBy": null,
+                        "companyId": null
+                      },
+                      "success": true,
+                      "type": "success",
+                      "statusCode": 200
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "success": false,
+                      "title": "Erişim Yetkisi Hatası",
+                      "message": "Bu kaynağa erişim yetkiniz bulunmamaktadır. Bir hata olduğunu düşünüyorsanız lütfen sistem yöneticiniz ile irtibate geçiniz.",
+                      "type": "warning",
+                      "statusCode": 403
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-headquarters-address-id",
+        "description": "Firmanın id'si yazılarak o firmaya ait kanuni merkez bilgileri getirilir."
+      }
     }
   },
   "components": {
@@ -1824,7 +2808,7 @@
         ],
         "x-examples": {
           "example-1": {
-            "usernamw": "user@tim.org.tr",
+            "username": "user@tim.org.tr",
             "password": "password"
           }
         },
@@ -1928,6 +2912,7 @@
         "type": "object",
         "x-examples": {
           "example-1": {
+            "id": "3db2afb7-6758-4d86-a2b9-4684dbb5c791",
             "oldPassword": "oldPass",
             "newPassword": "newPass12!",
             "verifyNewPassword": "newPass12!"
@@ -1935,7 +2920,8 @@
         },
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "description": "Şifresi değiştirilecek user'ın id'si"
           },
           "oldPassword": {
             "type": "string",
@@ -1957,6 +2943,7 @@
           }
         },
         "required": [
+          "id",
           "oldPassword",
           "newPassword",
           "verifyNewPassword"
@@ -1967,10 +2954,12 @@
         "type": "object",
         "properties": {
           "uid": {
-            "type": "string"
+            "type": "string",
+            "description": "Kodlanmış kullanıcı id'si"
           },
           "token": {
-            "type": "string"
+            "type": "string",
+            "description": "Kullanıcı token'ı"
           },
           "newPassword": {
             "type": "string",
