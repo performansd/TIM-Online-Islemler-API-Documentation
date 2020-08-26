@@ -121,14 +121,12 @@
               "schema": {
                 "$ref": "#/components/schemas/account-LoginRequest"
               },
-              "examples": {
-                "example-1": {}
-              }
+              "examples": {}
             }
           }
         },
         "tags": [
-          "Giriş"
+          "Authorization"
         ]
       },
       "parameters": []
@@ -228,7 +226,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "Authorization"
+        ]
       }
     },
     "/account/forgot-password": {
@@ -2794,25 +2795,27 @@
       "account-LoginRequest": {
         "title": "LoginRequest",
         "type": "object",
+        "x-examples": {
+          "Örnek 1": {
+            "username": "user@tim.org.tr",
+            "password": "password"
+          }
+        },
+        "description": "Login olurken gönderilmesi gereken parametreler",
         "properties": {
           "username": {
-            "type": "string"
+            "type": "string",
+            "description": "İşlem yapacak kullanıcının e-posta adresi"
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "description": "Kullanıcının şifresi"
           }
         },
         "required": [
           "username",
           "password"
-        ],
-        "x-examples": {
-          "example-1": {
-            "username": "user@tim.org.tr",
-            "password": "password"
-          }
-        },
-        "description": "Login olurken gönderilmesi gereken parametreler"
+        ]
       },
       "ApiResult": {
         "title": "ApiResult",
