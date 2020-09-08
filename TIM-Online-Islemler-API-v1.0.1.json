@@ -25,22 +25,16 @@
                   "properties": {
                     "data": {
                       "type": "object",
-                      "required": [
-                        "id",
-                        "email",
-                        "fullName",
-                        "accessToken",
-                        "refreshToken",
-                        "expires"
-                      ],
                       "properties": {
                         "id": {
                           "type": "string",
-                          "description": "Kullanıcı Id'si"
+                          "description": "Kullanıcı Id'si",
+                          "format": "uuid"
                         },
                         "email": {
                           "type": "string",
-                          "description": "Kullanıcı email adresi"
+                          "description": "Kullanıcı e-posta adresi",
+                          "format": "email"
                         },
                         "fullName": {
                           "type": "string",
@@ -56,9 +50,18 @@
                         },
                         "expires": {
                           "type": "string",
-                          "description": "JWT sona erme tarihi"
+                          "description": "JWT sona erme tarihi",
+                          "format": "date-time"
                         }
-                      }
+                      },
+                      "required": [
+                        "id",
+                        "email",
+                        "fullName",
+                        "accessToken",
+                        "refreshToken",
+                        "expires"
+                      ]
                     },
                     "success": {
                       "type": "boolean",
@@ -70,7 +73,8 @@
                     },
                     "statusCode": {
                       "type": "integer",
-                      "description": "Alınan cevabın durum kodu."
+                      "description": "Alınan cevabın durum kodu.",
+                      "format": "int32"
                     }
                   },
                   "required": [
@@ -185,11 +189,13 @@
                       "properties": {
                         "id": {
                           "type": "string",
-                          "description": "Kullanıcı Id'si"
+                          "description": "Kullanıcı Id'si",
+                          "format": "uuid"
                         },
                         "email": {
                           "type": "string",
-                          "description": "Kullanıcı email adresi"
+                          "description": "Kullanıcı e-posta adresi",
+                          "format": "email"
                         },
                         "fullName": {
                           "type": "string",
@@ -200,11 +206,13 @@
                           "description": "JWT anahtarı"
                         },
                         "refreshToken": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "JWT yenileme anahtarı"
                         },
                         "expires": {
                           "type": "string",
-                          "description": "JWT sona erme tarihi"
+                          "description": "JWT sona erme tarihi",
+                          "format": "date-time"
                         }
                       },
                       "required": [
@@ -226,12 +234,14 @@
                     },
                     "statusCode": {
                       "type": "integer",
-                      "description": "Alınan cevabın durum kodu."
+                      "description": "Alınan cevabın durum kodu.",
+                      "format": "int32"
                     }
                   },
                   "required": [
                     "success",
-                    "type"
+                    "type",
+                    "statusCode"
                   ]
                 },
                 "examples": {
@@ -583,7 +593,8 @@
                         "properties": {
                           "exporterId": {
                             "type": "string",
-                            "description": "İhracatçı firma Id'si"
+                            "description": "İhracatçı firma Id'si",
+                            "format": "uuid"
                           },
                           "exporterName": {
                             "type": "string",
@@ -595,7 +606,8 @@
                           },
                           "brokerId": {
                             "type": "string",
-                            "description": "Gümrük müşaviri firma Id'si"
+                            "description": "Gümrük müşaviri firma Id'si",
+                            "format": "uuid"
                           },
                           "brokerName": {
                             "type": "string",
@@ -607,11 +619,13 @@
                           },
                           "startDate": {
                             "type": "string",
-                            "description": "Vekaletname başlangıç tarihi"
+                            "description": "Vekaletname başlangıç tarihi",
+                            "format": "date-time"
                           },
                           "expireDate": {
                             "type": "string",
-                            "description": "Vekaletname başlangıç geçerlilik tarihi"
+                            "description": "Vekaletname başlangıç geçerlilik tarihi",
+                            "format": "date-time"
                           },
                           "expired": {
                             "type": "boolean",
@@ -631,19 +645,23 @@
                           },
                           "notaryApprovalDate": {
                             "type": "string",
-                            "description": "Vekaletname noter onay tarihi"
+                            "description": "Vekaletname noter onay tarihi",
+                            "format": "date-time"
                           },
                           "associationCode": {
                             "type": "integer",
-                            "description": "Vekaletnameyi tanımlayan birlik kodu"
+                            "description": "Vekaletnameyi tanımlayan birlik kodu",
+                            "format": "int32"
                           },
                           "membershipAssociationCode": {
                             "type": "integer",
-                            "description": "Vekaletnamenin tanımlı olduğu ihracatçı firmanın üyesi olduğu birlik kodu"
+                            "description": "Vekaletnamenin tanımlı olduğu ihracatçı firmanın üyesi olduğu birlik kodu",
+                            "format": "int32"
                           },
                           "parentAssociationCode": {
                             "type": "integer",
-                            "description": "Vekaletnamenin tanımlı olduğu ihracatçı firmanın üyesi olduğu genel sekreterlik kodu"
+                            "description": "Vekaletnamenin tanımlı olduğu ihracatçı firmanın üyesi olduğu genel sekreterlik kodu",
+                            "format": "int32"
                           }
                         },
                         "required": [
@@ -741,7 +759,7 @@
               }
             }
           },
-          "description": "Vekaletname listeleme için gönderilmesi gereken parametrelerdir."
+          "description": "Vekaletname listeleme için gönderilmesi gereken parametrelerdir.\nFiltrelemede fieldName alanı için yazılabilecek değerler:\n1- ExporterName\n2- ExporterTaxNumber\n3- BrokerName\n4- BrokerTaxNumber"
         }
       }
     },
@@ -808,7 +826,8 @@
                   },
                   "expiresOn": {
                     "type": "string",
-                    "description": "Vekaletname geçerlilik tarihi"
+                    "description": "Vekaletname geçerlilik tarihi",
+                    "format": "date-time"
                   },
                   "notaryName": {
                     "type": "string",
@@ -816,7 +835,8 @@
                   },
                   "notaryApprovalDate": {
                     "type": "string",
-                    "description": "Noter onay tarihi"
+                    "description": "Noter onay tarihi",
+                    "format": "date-time"
                   },
                   "notaryApprovalNo": {
                     "type": "string",
@@ -826,16 +846,19 @@
                     "type": "array",
                     "description": "Yüklenen vekaletname dosyalarının id listesi",
                     "items": {
-                      "type": "string"
+                      "type": "string",
+                      "format": "uuid"
                     }
                   },
                   "associationId": {
                     "type": "string",
-                    "description": "Talebin onaya gönderileceği birlik id'si"
+                    "description": "Talebin onaya gönderileceği birlik id'si",
+                    "format": "uuid"
                   },
                   "id": {
                     "type": "string",
-                    "description": "Vekaletname id'si"
+                    "description": "Vekaletname id'si",
+                    "format": "uuid"
                   }
                 },
                 "required": [
@@ -906,9 +929,10 @@
                     },
                     "data": {
                       "type": "array",
-                      "description": "Kayıtlar burada listeenir.",
+                      "description": "Kayıtlar burada listelenir.",
                       "items": {
                         "type": "object",
+                        "description": "Kayıtlar bu nesne tipindedir.",
                         "properties": {
                           "code": {
                             "type": "string",
@@ -916,7 +940,25 @@
                           },
                           "requestTypeId": {
                             "type": "integer",
-                            "description": "Talep tipi kodu"
+                            "description": "Talep tipi kodu",
+                            "enum": [
+                              2001,
+                              2002,
+                              2003,
+                              2004,
+                              2005,
+                              2006,
+                              2007,
+                              2009,
+                              2010,
+                              2011,
+                              2012,
+                              2013,
+                              2014,
+                              2015,
+                              2016
+                            ],
+                            "format": "int32"
                           },
                           "requestTypeText": {
                             "type": "string",
@@ -924,7 +966,8 @@
                           },
                           "exporterCompanyId": {
                             "type": "string",
-                            "description": "Talepteki ihracatçı firma Id'si"
+                            "description": "Talepteki ihracatçı firma Id'si",
+                            "format": "uuid"
                           },
                           "exporterCompanyName": {
                             "type": "string",
@@ -936,7 +979,8 @@
                           },
                           "brokerCompanyId": {
                             "type": "string",
-                            "description": "Talepteki gümrük müşaviri firma Id'si"
+                            "description": "Talepteki gümrük müşaviri firma Id'si",
+                            "format": "uuid"
                           },
                           "brokerCompanyName": {
                             "type": "string",
@@ -960,13 +1004,97 @@
                           },
                           "requestUpdatedByName": {
                             "type": "string",
-                            "description": "Talebi kimin onayladığını veya reddettiğini gösterir"
+                            "description": "Talebi kimin onayladığını veya reddettiğini gösterir. Kullanıcı adı ve bağlı olduğu birliği gösterir."
                           },
                           "approvalData": {
                             "type": "object",
                             "description": "Her talep tipine göre bu değer değişkendir."
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "Kaydın Id'si",
+                            "format": "uuid"
+                          },
+                          "statusId": {
+                            "type": "integer",
+                            "description": "Kaydın durum kodu",
+                            "enum": [
+                              "2101",
+                              "2102",
+                              "2108",
+                              "2109"
+                            ],
+                            "format": "int32"
+                          },
+                          "statusText": {
+                            "type": "string",
+                            "description": "Durum kodu açıklaması"
+                          },
+                          "createdOn": {
+                            "type": "string",
+                            "description": "Kaydın oluşturulma tarihi",
+                            "format": "date-time"
+                          },
+                          "createdBy": {
+                            "type": "string",
+                            "description": "Kaydı oluşturan kullanıcı Id'si",
+                            "format": "uuid"
+                          },
+                          "createdByUserFullname": {
+                            "type": "string",
+                            "description": "Kaydı oluşturan kullanıcı adı"
+                          },
+                          "modifiedOn": {
+                            "type": "string",
+                            "description": "Kaydın en son güncellenme tarihi",
+                            "format": "date-time"
+                          },
+                          "modifiedBy": {
+                            "type": "string",
+                            "description": "Kaydı en son güncelleyen kullanıcı Id'si",
+                            "format": "uuid"
+                          },
+                          "modifiedByUserFullname": {
+                            "type": "string",
+                            "description": "Kaydı en son güncelleyen kullanıcı adı"
+                          },
+                          "requestedByIdentityNumber": {
+                            "type": "string",
+                            "description": "Talep edenin kimlik numarası"
+                          },
+                          "requestedByGsm": {
+                            "type": "string",
+                            "description": "Talep edenin telefon numarası"
+                          },
+                          "associationId": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "parentAssociationId": {
+                            "type": "string",
+                            "format": "uuid"
+                          },
+                          "isRequestedByBroker": {
+                            "type": "boolean",
+                            "description": "Bu isteğin gümrük müşaviri kullanıcısı tarafından olup olmadığını gösterir."
                           }
-                        }
+                        },
+                        "required": [
+                          "code",
+                          "requestTypeId",
+                          "exporterCompanyId",
+                          "brokerCompanyId",
+                          "requestedByName",
+                          "requestedByEmail",
+                          "id",
+                          "statusId",
+                          "createdOn",
+                          "createdBy",
+                          "modifiedOn",
+                          "modifiedBy",
+                          "associationId",
+                          "isRequestedByBroker"
+                        ]
                       }
                     }
                   },
@@ -1106,7 +1234,14 @@
                     "sorts": [
                       {
                         "fieldName": "StatusId",
-                        "sortDirection": 1
+                        "sortDirection": 0
+                      }
+                    ],
+                    "filters": [
+                      {
+                        "fieldName": "Code",
+                        "value": "TIM20-12",
+                        "operator": "sw"
                       }
                     ]
                   }
@@ -1114,7 +1249,7 @@
               }
             }
           },
-          "description": "Talep listeleme için gönderilmesi gereken parametrelerdir."
+          "description": "Talep listeleme için gönderilmesi gereken parametrelerdir.\nFiltrelemede fieldName alanı için yazılabilecek değerler:\n1- Code\n2- RequestTypeId (Id değerleri ve karşılıkları aşağıdaki gibidir.)\n   2001 - Üye Bilgisi Güncelleme - Firma Bilgisi Değişikliği\n   2002 - Üye Bilgisi Güncelleme - Nevi Değişikliği\n   2003 - Üye Bilgisi Güncelleme - Kanuni Merkez Değişikliği\n   2004 - Üye Bilgisi Güncelleme - Şube Açılışı\n   2005 - Üye Bilgisi Güncelleme - Şube Kapanışı\n   2006 - Vekaletname Tanımlama\n   2007 - İhracatçı Firma Üyelik Başvurusu\n   2008 - Gümrük Müşaviri Üyelik Başvurusu\n   2009 - Üye Bilgisi Güncelleme - Şube Güncelleme\n   2010 - Üye Bilgisi Güncelleme - Firma Temsilcisi Tanımlama\n   2011 - Üye Bilgisi Güncelleme - Firma Temsilcisi Güncelleme\n   2012 - Üye Bilgisi Güncelleme - İletişim Bilgisi Güncelleme\n   2013 - Üye Bilgisi Güncelleme - Firma Temsilcisi Silme\n   2014 - Üye Bilgisi Güncelleme - Firma Sorumlusu Tanımlama\n   2015 - Üye Bilgisi Güncelleme - Firma Sorumlusu Güncelleme\n   2016 - Üye Bilgisi Güncelleme - Firma Sorumlusu Silme\n3- ExporterCompanyName\n4- ExporterCompanyTaxNumber\n5- BrokerCompanyName\n6- BrokerCompanyTaxNumber\n7- RequestedByName\n8- RequestedByEmail\n9- RequestUpdatedByName\n10- StatusId (Id değerleri ve karşılıkları aşağıdaki gibidir.)\n   2101 - Hazırlanıyor\n   2102 - Onay Bekliyor\n   2108 - Onaylandı\n   2109 - Red Edildi"
         }
       }
     },
@@ -1173,7 +1308,8 @@
                 "properties": {
                   "id": {
                     "type": "string",
-                    "description": "Bekleyen talep id'si"
+                    "description": "Bekleyen talebin id'si",
+                    "format": "uuid"
                   },
                   "approve": {
                     "type": "boolean",
@@ -1232,11 +1368,13 @@
                         "properties": {
                           "registrationNumber": {
                             "type": "integer",
-                            "description": "Üye olduğu birliğin sicil numarası"
+                            "description": "Üye olduğu birliğin sicil numarası",
+                            "format": "int32"
                           },
                           "registrationDate": {
                             "type": "string",
-                            "description": "Üyelik tarihi"
+                            "description": "Üyelik tarihi",
+                            "format": "date-time"
                           },
                           "canGetMembershipDocument": {
                             "type": "boolean",
@@ -1244,7 +1382,8 @@
                           },
                           "associationId": {
                             "type": "string",
-                            "description": "Birlik id'si"
+                            "description": "Birlik id'si",
+                            "format": "uuid"
                           },
                           "associationName": {
                             "type": "string",
@@ -1254,7 +1393,14 @@
                             "type": "string",
                             "description": "Birlik Telefon Numarası"
                           }
-                        }
+                        },
+                        "required": [
+                          "registrationNumber",
+                          "canGetMembershipDocument",
+                          "associationId",
+                          "associationName",
+                          "phoneNumber"
+                        ]
                       }
                     },
                     "success": {
@@ -1267,7 +1413,8 @@
                     },
                     "statusCode": {
                       "type": "integer",
-                      "description": "Alınan cevabın durum kodu."
+                      "description": "Alınan cevabın durum kodu.",
+                      "format": "int32"
                     }
                   },
                   "required": [
@@ -1386,7 +1533,8 @@
                     },
                     "statusCode": {
                       "type": "integer",
-                      "description": "Alınan cevabın durum kodu."
+                      "description": "Alınan cevabın durum kodu.",
+                      "format": "int32"
                     }
                   },
                   "required": [
@@ -1491,11 +1639,13 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "name": "id",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Belgenin id'si yazılarak belirtilen belgenin indirilmesi sağlanır"
         }
       ]
     },
@@ -1503,35 +1653,58 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "integer",
+            "enum": [
+              5001,
+              5002,
+              5003,
+              5004
+            ]
           },
           "name": "documentType",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Belge türünün int tipinde değeri yazılır."
         },
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "name": "associationId",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Bilgi yazısının alınacağı birliğin id'sidir"
         },
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "example": "01.08.2018"
           },
           "name": "period",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Period değerleri (Her ay değişir. Ağustos 2020 ayını baz alırsak aşağıdaki değerler gönderilmelidir.):\n  -2 yıl önce bulunduğumuz ayın 1'i (01.08.2018)\n  -2 yıl 1 ay önceki ayın 1'i (01.07.2018)\n  -2 yıl 2 ay önceki ayın 1'i (01.06.2018)\ndeğerleri belgenin başlangıç tarihi parantez şeklindeki hali ile gönderilir."
         },
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "ar",
+              "de",
+              "en",
+              "es",
+              "fr",
+              "it",
+              "ja",
+              "ru",
+              "zh"
+            ]
           },
           "name": "lang",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Bilgi yazısının hangi dilde alınacağının belirtildiği parametredir."
         }
       ],
       "get": {
@@ -1722,7 +1895,7 @@
           }
         },
         "operationId": "get-document-request-create-document-documentType",
-        "description": "Yeni bir belge oluşturmak için kullanılır. {documentType} yerine hangi belge türü oluşturulacak ise onun int tipinde değeri yazılır. Girilmesi zorunludur.\n-Üyelik belgesi -> 5001, \n-Üye Bilgi Yazısı -> 5002, \n-Performans ve Güvenilirlik Belgesi -> 5003,\n-3 Yıllık İhracat Raporu -> 5004.\n\nEğer Üyelik bilgi yazısı ise {associationId} ve {lang} değerleri gönderilmelidir.\n{associationId} parametresi bilgi yazısının alınacağı birliğin id'sidir.\n{lang} parametresi bilgi yazısının hangi dilde alınacağının belirtildiği parametredir.{lang} parametresinin alabileceği değerler ar, de, en, es, fr, it, ja, ru, zh olmalıdır.\n\nPerformans belgesi ise {associationId} ve {period} değeri gönderilmelidir. \nPeriod değerleri (Her ay değişir. Ağustos 2020 ayını baz alırsak aşağıdaki değerler gönderilmelidir.):\n-2 yıl önce bulunduğumuz ayın 1'i (01.08.2018)\n-2 yıl 1 ay önceki ayın 1'i (01.07.2018)\n-2 yıl 2 ay önceki ayın 1'i (01.06.2018)\ndeğerleri belgenin başlangıç tarihi parantez şeklindeki hali ile gönderilir."
+        "description": "Yeni bir belge oluşturmak için kullanılır. {documentType} yerine hangi belge türü oluşturulacak ise onun int tipinde değeri yazılır. Girilmesi zorunludur.\n   5001 - Üyelik belgesi, \n   5002 - Üye Bilgi Yazısı, \n   5003 - Performans ve Güvenilirlik Belgesi,\n   5004 - 3 Yıllık İhracat Raporu.\n\nEğer Üyelik bilgi yazısı ise {associationId} ve {lang} değerleri gönderilmelidir.\n{associationId} parametresi bilgi yazısının alınacağı birliğin id'sidir.\n{lang} parametresi bilgi yazısının hangi dilde alınacağının belirtildiği parametredir.{lang} parametresinin alabileceği değerler ar, de, en, es, fr, it, ja, ru, zh olmalıdır.\n\nPerformans belgesi ise {associationId} ve {period} değeri gönderilmelidir. \nPeriod değerleri (Her ay değişir. Ağustos 2020 ayını baz alırsak aşağıdaki değerler gönderilmelidir.):\n-2 yıl önce bulunduğumuz ayın 1'i (01.08.2018)\n-2 yıl 1 ay önceki ayın 1'i (01.07.2018)\n-2 yıl 2 ay önceki ayın 1'i (01.06.2018)\ndeğerleri belgenin başlangıç tarihi parantez şeklindeki hali ile gönderilir."
       }
     },
     "/document-request/list": {
@@ -1815,8 +1988,6 @@
                           "code",
                           "documentTypeId",
                           "exporterCompanyId",
-                          "exporterCompanyName",
-                          "exporterCompanyTaxNumber",
                           "id",
                           "statusId",
                           "createdOn",
@@ -1911,7 +2082,7 @@
               "examples": {
                 "Örnek 1": {
                   "value": {
-                    "page": 2,
+                    "page": 1,
                     "pageSize": 20,
                     "sorts": [
                       {
@@ -1924,7 +2095,7 @@
               }
             }
           },
-          "description": "Belge listeleme için gönderilmesi gereken parametrelerdir."
+          "description": "Belge listeleme için gönderilmesi gereken parametrelerdir.\nFiltrelemede fieldName alanı için yazılabilecek değerler:\n1- Code\n2- DocumentTypeId (Id değerleri ve karşılıkları aşağıdaki gibidir.)\n   5001 - Üyelik Belgesi\n   5002 - Üyelik Bilgi Yazısı\n   5003 - Performans ve Güvenilirlik Belgesi\n   5004 - Son 3 Yıllık İhracat Raporu Belgesi\n3- ExporterCompanyName\n4- ExporterCompanyTaxNumber"
         }
       }
     },
@@ -1952,7 +2123,8 @@
                     },
                     "statusCode": {
                       "type": "integer",
-                      "description": "Alınan cevabın durum kodu."
+                      "description": "Alınan cevabın durum kodu.",
+                      "format": "int32"
                     },
                     "data": {
                       "$ref": "#/components/schemas/file-FileDescription"
@@ -2040,11 +2212,13 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "name": "id",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Dosyanın id'si"
         }
       ]
     },
@@ -2076,7 +2250,8 @@
                     },
                     "statusCode": {
                       "type": "integer",
-                      "description": "Alınan cevabın durum kodu."
+                      "description": "Alınan cevabın durum kodu.",
+                      "format": "int32"
                     }
                   },
                   "required": [
@@ -2137,8 +2312,10 @@
               "schema": {
                 "type": "array",
                 "description": "Dosya id listesi",
+                "uniqueItems": false,
                 "items": {
-                  "type": "string"
+                  "type": "string",
+                  "format": "uuid"
                 }
               },
               "examples": {
@@ -2162,10 +2339,12 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "name": "id",
           "in": "path",
+          "description": "İndirilmek istenen dosyanın id'si",
           "required": true
         }
       ],
@@ -2204,7 +2383,7 @@
         "description": "Dosya indirmek için kullnaılır. {id} yerine indirilmek istenen dosyanın id'si yazılır. Cevap olarak dosya döndürür."
       }
     },
-    "/file/upload?ownerId={ownerId}&fileType={fileType]": {
+    "/file/upload?ownerId={ownerId}&fileType={fileType}": {
       "post": {
         "summary": "Dosya Yükleme",
         "operationId": "post-file-upload",
@@ -2298,11 +2477,30 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "name": "ownerId",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Yüklenecek olan dosyaların ait olduğu kaydın id'si"
+        },
+        {
+          "schema": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              1001,
+              1002,
+              1003,
+              1004,
+              1005
+            ]
+          },
+          "name": "fileType",
+          "in": "path",
+          "required": true,
+          "description": "Yüklenen dosyanın türüdür."
         }
       ]
     },
@@ -2322,7 +2520,8 @@
                   "properties": {
                     "data": {
                       "type": "integer",
-                      "description": "Yeşil pasaport adedi"
+                      "description": "Yeşil pasaport adedi",
+                      "format": "int32"
                     },
                     "success": {
                       "type": "boolean",
@@ -2334,7 +2533,8 @@
                     },
                     "statusCode": {
                       "type": "integer",
-                      "description": "Alınan cevabın durum kodu."
+                      "description": "Alınan cevabın durum kodu.",
+                      "format": "int32"
                     }
                   },
                   "required": [
@@ -2390,16 +2590,22 @@
           }
         },
         "operationId": "get-get-export-monthly",
-        "description": "Firmanın geçen ayki ihracat değerini getirir. İhracatçı veya imalatçı olarak ihracat değerleri alınır. Parametre olarak gönderilen {exportType} değeri 'manufacturer' veya 'exporter' olmalıdır."
+        "description": "Firmanın geçen ayki ihracat değerini getirir. İhracatçı veya imalatçı olarak ihracat değerleri alınır. Parametre olarak gönderilen {exportType} değeri 'manufacturer' veya 'exporter' olmalıdır.",
+        "parameters": []
       },
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "exporter",
+              "manufacturer"
+            ]
           },
           "name": "exportType",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "İhracat türü"
         }
       ]
     },
@@ -2437,11 +2643,16 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "exporter",
+              "manufacturer"
+            ]
           },
           "name": "exportType",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "İhracat türü"
         }
       ]
     },
@@ -2449,19 +2660,31 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "exporter",
+              "manufacturer"
+            ]
           },
           "name": "exportType",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "İhracat türü"
         },
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "2020",
+              "2019",
+              "2018",
+              "2017"
+            ]
           },
           "name": "filter",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Yıl bilgisi"
         }
       ],
       "get": {
@@ -2503,15 +2726,23 @@
           },
           "name": "exportType",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "İhracat türü"
         },
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "2020",
+              "2019",
+              "2018",
+              "2017"
+            ]
           },
           "name": "filter",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Yıl bilgisi"
         }
       ],
       "get": {
@@ -2584,7 +2815,13 @@
                           },
                           "companyTypeId": {
                             "type": "integer",
-                            "description": "Firma tipi kodu"
+                            "description": "Firma tipi kodu",
+                            "format": "int32",
+                            "enum": [
+                              3001,
+                              3002,
+                              3003
+                            ]
                           },
                           "category": {
                             "type": "string",
@@ -2608,15 +2845,18 @@
                           },
                           "id": {
                             "type": "string",
-                            "description": "Firma id'si"
+                            "description": "Firma id'si",
+                            "format": "uuid"
                           },
                           "createdOn": {
                             "type": "string",
-                            "description": "Firma kaydının oluşturulma tarihi"
+                            "description": "Firma kaydının oluşturulma tarihi",
+                            "format": "date-time"
                           },
                           "createdBy": {
                             "type": "string",
-                            "description": "Firma kaydını oluşturan kullanıcı id'si"
+                            "description": "Firma kaydını oluşturan kullanıcı id'si",
+                            "format": "uuid"
                           },
                           "createdByUserFullname": {
                             "type": "string",
@@ -2624,11 +2864,13 @@
                           },
                           "modifiedOn": {
                             "type": "string",
-                            "description": "Firma kaydını güncelleme tarihi"
+                            "description": "Firma kaydını güncelleme tarihi",
+                            "format": "date-time"
                           },
                           "modifiedBy": {
                             "type": "string",
-                            "description": "Firma kaydını güncelleyen kullanıcı id'si"
+                            "description": "Firma kaydını güncelleyen kullanıcı id'si",
+                            "format": "uuid"
                           },
                           "modifiedByUserFullname": {
                             "type": "string",
@@ -2636,7 +2878,13 @@
                           },
                           "statusId": {
                             "type": "integer",
-                            "description": "Firma durum kodu"
+                            "description": "Firma durum kodu",
+                            "format": "int32",
+                            "example": 1,
+                            "enum": [
+                              1,
+                              0
+                            ]
                           },
                           "statusText": {
                             "type": "string",
@@ -2662,7 +2910,8 @@
                     },
                     "total": {
                       "type": "integer",
-                      "description": "Getirilen toplam kayıt sayısını belirtir."
+                      "description": "Getirilen toplam kayıt sayısını belirtir.",
+                      "format": "int32"
                     }
                   },
                   "required": [
@@ -2741,12 +2990,12 @@
               "examples": {
                 "Örnek 1": {
                   "value": {
-                    "page": 5,
+                    "page": 2,
                     "pageSize": 20,
                     "sorts": [
                       {
                         "fieldName": "Name",
-                        "sortDirection": 1
+                        "sortDirection": 0
                       }
                     ]
                   }
@@ -2754,7 +3003,7 @@
               }
             }
           },
-          "description": "Üye firmaları listeleme için gönderilmesi gereken parametrelerdir."
+          "description": "Üye firmaları listeleme için gönderilmesi gereken parametrelerdir.\nFiltrelemede fieldName alanı için yazılabilecek değerler:\n1- Name\n2- TaxNumber\n3- CompanyTypeId (Id değerleri ve karşılıkları aşağıdaki gibidir.)\n   3001 - İhracatçı\n   3002 - Gümrük Müşaviri\n   3003 - İhracatçı ve Gümrük Müşaviri"
         }
       }
     },
@@ -2762,11 +3011,13 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "name": "id",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Kullanıcı id'si"
         }
       ],
       "get": {
@@ -2786,15 +3037,24 @@
                       "$ref": "#/components/schemas/user-AppUser"
                     },
                     "success": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Alınan cevabın başarısız veya başarılı durumuna göre true veya false olarak gelir."
                     },
                     "type": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Alınan cevabın başarılı veya başarısız olduğunun açıklaması."
                     },
                     "statusCode": {
-                      "type": "integer"
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "Alınan cevabın durum kodu."
                     }
-                  }
+                  },
+                  "required": [
+                    "success",
+                    "type",
+                    "statusCode"
+                  ]
                 },
                 "examples": {
                   "Örnek 1": {
@@ -2887,10 +3147,12 @@
                   "properties": {
                     "total": {
                       "type": "integer",
-                      "description": "Getirilen toplam kayıt sayısını belirtir."
+                      "description": "Getirilen toplam kayıt sayısını belirtir.",
+                      "format": "int32"
                     },
                     "data": {
                       "type": "array",
+                      "description": "Kullanıcı listesi",
                       "items": {
                         "$ref": "#/components/schemas/user-AppUser"
                       }
@@ -3017,7 +3279,7 @@
               }
             }
           },
-          "description": "Kullanıcı listeleme için gönderilmesi gereken parametrelerdir."
+          "description": "Kullanıcı listeleme için gönderilmesi gereken parametrelerdir.\nFiltrelemede fieldName alanı için yazılabilecek değerler:\n1- FullName\n2- UserName\n3- PhoneNumber\n4- AssociationId\n5- UserTypeId (Id değerleri ve karşılıkları aşağıdaki gibidir.)\n   4002 - Sistem Yöneticisi\n   4003 - Genel Sekreterlik Yöneticisi\n   4004 - Birlik Yöneticisi\n   4005 - Kosgeb Sorgu Kullanıcısı\n   4006 - Firma Kullanıcısı\n   4007 - Gümrük Müşaviri Kullanıcısı"
         }
       }
     },
@@ -3097,11 +3359,17 @@
                 "properties": {
                   "id": {
                     "type": "string",
-                    "description": "Durumu değiştirilecek kullanıcının id'si"
+                    "description": "Durumu değiştirilecek kullanıcının id'si",
+                    "format": "uuid"
                   },
                   "statusId": {
                     "type": "integer",
-                    "description": "Kullanıcının integer status değeri\nAktif(1)\nPasif(2)"
+                    "description": "Kullanıcının integer status değeri\nAktif(1)\nPasif(2)",
+                    "format": "int32",
+                    "enum": [
+                      1,
+                      2
+                    ]
                   }
                 },
                 "required": [
@@ -3130,11 +3398,13 @@
       "parameters": [
         {
           "schema": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid"
           },
           "name": "id",
           "in": "path",
-          "required": true
+          "required": true,
+          "description": "Firmanın id'si yazılmalıdır."
         }
       ],
       "get": {
@@ -3163,7 +3433,8 @@
                     },
                     "statusCode": {
                       "type": "integer",
-                      "description": "Alınan cevabın durum kodu."
+                      "description": "Alınan cevabın durum kodu.",
+                      "format": "int32"
                     }
                   },
                   "required": [
@@ -3445,11 +3716,13 @@
         "properties": {
           "username": {
             "type": "string",
-            "description": "İşlem yapacak kullanıcının e-posta adresi"
+            "description": "İşlem yapacak kullanıcının e-posta adresi",
+            "format": "email"
           },
           "password": {
             "type": "string",
-            "description": "Kullanıcının şifresi"
+            "description": "Kullanıcının şifresi",
+            "format": "password"
           }
         },
         "required": [
@@ -3464,11 +3737,7 @@
           "Örnek 1": {
             "success": true,
             "statusCode": 200,
-            "type": "success",
-            "data": {
-              "name": "TIM",
-              "phone": "444 0 846"
-            }
+            "type": "success"
           }
         },
         "description": "",
@@ -3491,12 +3760,8 @@
           },
           "statusCode": {
             "type": "integer",
-            "description": "Alınan cevabın durum kodu."
-          },
-          "modelStateErrors": {
-            "type": "array",
-            "description": "Gönderilen modelde hata var ise bu alan dolu gelir.",
-            "items": {}
+            "description": "Alınan cevabın durum kodu.",
+            "format": "int32"
           }
         },
         "required": [
@@ -3512,11 +3777,13 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Şifresi değiştirilecek user'ın id'si"
+            "description": "Şifresi değiştirilecek kullanıcının Id'si",
+            "format": "uuid"
           },
           "oldPassword": {
             "type": "string",
-            "description": "Eski şifre"
+            "description": "Eski şifre",
+            "format": "password"
           },
           "newPassword": {
             "type": "string",
@@ -3557,14 +3824,14 @@
             "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,500}$",
             "minLength": 8,
             "format": "password",
-            "description": "Kullanılacak şifre"
+            "description": "Yeni şifre"
           },
           "verifyPassword": {
             "type": "string",
             "format": "password",
             "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,500}$",
             "minLength": 8,
-            "description": "Kullanılacak şifre tekrar"
+            "description": "Yeni şifre tekrar"
           }
         },
         "required": [
@@ -3577,26 +3844,31 @@
       "company-EBirlikMembershipDue": {
         "title": "company-EBirlikMembershipDue",
         "type": "object",
+        "description": "Üye borçlarında kullanılır.",
         "properties": {
           "associationName": {
             "type": "string",
             "description": "Birlik adı"
           },
           "associationCode": {
-            "type": "string",
-            "description": "SIRKOD Birliğe ait e-birlik kodu"
+            "type": "integer",
+            "description": "SIRKOD Birliğe ait e-birlik kodu",
+            "format": "int32"
           },
           "amount": {
-            "type": "string",
-            "description": "Toplam borç tutarı"
+            "type": "number",
+            "description": "Toplam borç tutarı",
+            "format": "double"
           },
           "year": {
-            "type": "string",
-            "description": "Nispi aidatlarda borcun ait olduğu yıl. Cari yıl üyelik aidatlarında değeri 0 olur."
+            "type": "integer",
+            "description": "Nispi aidatlarda borcun ait olduğu yıl. Cari yıl üyelik aidatlarında değeri 0 olur.",
+            "format": "int32"
           },
           "delayHike": {
-            "type": "string",
-            "description": "Nispi aidatlar için gecikme zammı. Cari yıl üyelik aidatlarında 0 olacaktır"
+            "type": "number",
+            "description": "Nispi aidatlar için gecikme zammı. Cari yıl üyelik aidatlarında değeri 0 olacaktır.",
+            "format": "double"
           }
         },
         "required": [
@@ -3605,16 +3877,17 @@
           "amount",
           "year",
           "delayHike"
-        ],
-        "description": "Üye borçlarında kullanılır."
+        ]
       },
       "file-FileDescription": {
         "title": "file-FileDescription",
         "type": "object",
+        "description": "Dosya bilgisi getirmede kullanılır.",
         "properties": {
           "id": {
             "type": "string",
-            "description": "Dosya id'si"
+            "description": "Dosya id'si",
+            "format": "uuid"
           },
           "name": {
             "type": "string",
@@ -3634,7 +3907,8 @@
           },
           "size": {
             "type": "integer",
-            "description": "Dosya boyutu"
+            "description": "Dosya boyutu",
+            "format": "int64"
           },
           "uploadError": {
             "type": "string",
@@ -3642,11 +3916,13 @@
           },
           "ownerId": {
             "type": "string",
-            "description": "Dosyanın ait olduğu kaydın id'si"
+            "description": "Dosyanın ait olduğu kaydın id'si",
+            "format": "uuid"
           },
           "fileType": {
-            "type": "string",
-            "description": "Dosya tipi kodu"
+            "type": "integer",
+            "description": "Dosya tipi kodu",
+            "format": "int32"
           },
           "isTemp": {
             "type": "boolean",
@@ -3661,10 +3937,22 @@
           },
           "createdOn": {
             "type": "string",
-            "description": "Dosya oluşturulma tarihi"
+            "description": "Dosya oluşturulma tarihi",
+            "format": "date-time"
           }
         },
-        "description": "Dosya bilgisi getirmede kullanılır."
+        "required": [
+          "id",
+          "name",
+          "realFileName",
+          "extension",
+          "contentType",
+          "size",
+          "ownerId",
+          "fileType",
+          "isTemp",
+          "createdOn"
+        ]
       },
       "export-ExportNumberResult": {
         "title": "export-ExportNumberResult",
@@ -3684,7 +3972,8 @@
           },
           "statusCode": {
             "type": "integer",
-            "description": "Alınan cevabın durum kodu."
+            "description": "Alınan cevabın durum kodu.",
+            "format": "int32"
           }
         },
         "required": [
@@ -3699,7 +3988,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Kullanıcı Id'si"
+            "description": "Kullanıcı Id'si",
+            "format": "uuid"
           },
           "fullName": {
             "type": "string",
@@ -3711,7 +4001,15 @@
           },
           "statusId": {
             "type": "integer",
-            "description": "Kullanıcının durum kodu"
+            "description": "Kullanıcının durum kodu",
+            "format": "int32",
+            "example": 1,
+            "enum": [
+              1,
+              2,
+              -1
+            ],
+            "default": 1
           },
           "statusText": {
             "type": "string",
@@ -3719,7 +4017,8 @@
           },
           "lastLoginDate": {
             "type": "string",
-            "description": "Kullanıcının sisteme son giriş tarihi"
+            "description": "Kullanıcının sisteme son giriş tarihi",
+            "format": "date-time"
           },
           "shouldChangePassword": {
             "type": "boolean",
@@ -3727,7 +4026,8 @@
           },
           "associationId": {
             "type": "string",
-            "description": "Kullanıcının bağlı olduğu birlik Id'si. İhracatçı ve gümrük müşaviri kullanıcılarında değeri null'dır."
+            "description": "Kullanıcının bağlı olduğu birlik Id'si. İhracatçı ve gümrük müşaviri kullanıcılarında değeri null'dır.",
+            "format": "uuid"
           },
           "associationName": {
             "type": "string",
@@ -3735,15 +4035,18 @@
           },
           "selectedCompanyId": {
             "type": "string",
-            "description": "Kullanıcı birden fazla firma ile ilişkili ise üst menüde en son seçtiği firmanın Id'si"
+            "description": "Kullanıcı birden fazla firma ile ilişkili ise üst menüde en son seçtiği firmanın Id'si",
+            "format": "date-time"
           },
           "companyId": {
             "type": "string",
-            "description": "Kullanıcının ilk kayıt olurken ilişkilendirildiği firmanın Id'si"
+            "description": "Kullanıcının ilk kayıt olurken ilişkilendirildiği firmanın Id'si",
+            "format": "uuid"
           },
           "companyType": {
             "type": "integer",
-            "description": "Kullanıcının ilk kayıt olurken ilişkilendirildiği firmanın tipi"
+            "description": "Kullanıcının ilk kayıt olurken ilişkilendirildiği firmanın tipi",
+            "format": "int32"
           },
           "isImpersonating": {
             "type": "boolean",
@@ -3751,7 +4054,19 @@
           },
           "userTypeId": {
             "type": "integer",
-            "description": "Kullanıcı tipi kodu"
+            "description": "Kullanıcı tipi kodu\n\n4001 - Teknik Destek\n4002 - Sistem Yöneticisi\n4003 - Genel Sekreterlik Yöneticisi\n4004 - Birlik Yöneticisi\n4005 - Kosgeb Sorgu Kullanıcısı\n4006 - Firma Kullanıcısı\n4007 - Gümrük Müşaviri Kullanıcısı",
+            "format": "int32",
+            "example": 4006,
+            "enum": [
+              4001,
+              4002,
+              4003,
+              4004,
+              4005,
+              4006,
+              4007,
+              4008
+            ]
           },
           "userTypeText": {
             "type": "string",
@@ -3763,11 +4078,13 @@
           },
           "createdOn": {
             "type": "string",
-            "description": "Kullanıcının oluşturulma tarihi"
+            "description": "Kullanıcının oluşturulma tarihi",
+            "format": "date-time"
           },
           "createdBy": {
             "type": "string",
-            "description": "Kullanıcıyı oluşturan kullanıcı Id'si"
+            "description": "Kullanıcıyı oluşturan kullanıcı Id'si",
+            "format": "uuid"
           },
           "createdByUserFullname": {
             "type": "string",
@@ -3775,11 +4092,13 @@
           },
           "modifiedOn": {
             "type": "string",
-            "description": "Kullanıcının güncelleme tarihi"
+            "description": "Kullanıcının güncelleme tarihi",
+            "format": "date-time"
           },
           "modifiedBy": {
             "type": "string",
-            "description": "Kullanıcıyı güncelleyen kullanıcı Id'si"
+            "description": "Kullanıcıyı güncelleyen kullanıcı Id'si",
+            "format": "uuid"
           },
           "modifiedByUserFullname": {
             "type": "string",
@@ -3787,11 +4106,13 @@
           },
           "password": {
             "type": "string",
-            "description": "Bu değer her zaman null'dır."
+            "description": "Kullanıcı şifresi. Güvenlik nedeniyle bu değer her zaman null gelir.",
+            "format": "password"
           },
           "newPassword": {
             "type": "string",
-            "description": "Bu değer her zaman null'dır."
+            "description": "Kullanıcı şifresi. Güvenlik nedeniyle bu değer her zaman null gelir.",
+            "format": "password"
           },
           "userName": {
             "type": "string",
@@ -3803,11 +4124,13 @@
           },
           "email": {
             "type": "string",
-            "description": "Kullanıcı email"
+            "description": "Kullanıcı email",
+            "format": "email"
           },
           "normalizedEmail": {
             "type": "string",
-            "description": "Kullanıcı email adresi"
+            "description": "Kullanıcı email adresi",
+            "format": "email"
           },
           "emailConfirmed": {
             "type": "boolean",
@@ -3894,7 +4217,13 @@
           },
           "companyTypeId": {
             "type": "integer",
-            "description": "Firma tipi kodu"
+            "description": "Firma tipi kodu\n\n3001 - İhracatçı\n3002 - Gümrük Müşaviri\n3003 - İhracatçı ve Gümrük Müşaviri",
+            "format": "int32",
+            "enum": [
+              3001,
+              3002,
+              3003
+            ]
           },
           "category": {
             "type": "string",
@@ -3914,15 +4243,22 @@
           },
           "lastExportStatsSync": {
             "type": "string",
-            "description": "İhracat verilerinin son güncellendiği tarih"
+            "description": "İhracat verilerinin son güncellendiği tarih",
+            "format": "date-time"
           },
           "lastSyncDate": {
             "type": "string",
-            "description": "Firma bilgilerinin e-birlikte kayıtlı olan bilgiler ile son güncellenme tarihi"
+            "description": "Firma bilgilerinin e-birlikte kayıtlı olan bilgiler ile son güncellenme tarihi",
+            "format": "date-time"
           },
           "statusId": {
             "type": "integer",
-            "description": "Firma durum kodu"
+            "description": "Firma durum kodu\n\n1 - Aktif\n2 - Pasif",
+            "format": "int32",
+            "enum": [
+              1,
+              2
+            ]
           },
           "statusText": {
             "type": "string",
@@ -3930,11 +4266,13 @@
           },
           "createdOn": {
             "type": "string",
-            "description": "Firma kaydının oluşturulma tarihi"
+            "description": "Firma kaydının oluşturulma tarihi",
+            "format": "date-time"
           },
           "createdBy": {
             "type": "string",
-            "description": "Firma kaydını oluşturan kullanıcı Id'si"
+            "description": "Firma kaydını oluşturan kullanıcı Id'si",
+            "format": "uuid"
           },
           "createdByUserFullname": {
             "type": "string",
@@ -3942,11 +4280,13 @@
           },
           "modifiedOn": {
             "type": "string",
-            "description": "Firma kaydını güncelleme tarihi"
+            "description": "Firma kaydını güncelleme tarihi",
+            "format": "date-time"
           },
           "modifiedBy": {
             "type": "string",
-            "description": "Firma kaydını güncelleyen kullanıcı Id'si"
+            "description": "Firma kaydını güncelleyen kullanıcı Id'si",
+            "format": "uuid"
           },
           "modifiedByUserFullname": {
             "type": "string",
@@ -3964,7 +4304,13 @@
                 },
                 "addressTypeId": {
                   "type": "integer",
-                  "description": "Adres tipi kodu"
+                  "description": "Adres tipi kodu\n\n3201 - Merkez\n3202 - Şube\n3203 - İletişim Adresi",
+                  "format": "int32",
+                  "enum": [
+                    3201,
+                    3202,
+                    3203
+                  ]
                 },
                 "addressTypeText": {
                   "type": "string",
@@ -4000,7 +4346,8 @@
                 },
                 "companyId": {
                   "type": "string",
-                  "description": "Firma Id'si"
+                  "description": "Firma Id'si",
+                  "format": "uuid"
                 },
                 "companyName": {
                   "type": "string",
@@ -4040,7 +4387,8 @@
                 },
                 "id": {
                   "type": "string",
-                  "description": "Adres kaydının Id'si"
+                  "description": "Adres kaydının Id'si",
+                  "format": "uuid"
                 },
                 "extraData": {
                   "type": "array",
@@ -4054,7 +4402,20 @@
                       },
                       "filedTypeId": {
                         "type": "integer",
-                        "description": "Bölüm tipi kodu."
+                        "description": "Bölüm tipi kodu.\n\n3400 - Telefon\n3401 - Gsm\n3402 - Faks\n3403 - Email\n3404 - Web Sitesi\n3405 - Social Medya Hesabı\n3410 - Bulunduğu Şube\n3420 - Yönetim Kurulu Başkanı\n3421 - Genel Müdür\n3425 - Yönetici Asistanı",
+                        "format": "int32",
+                        "enum": [
+                          3400,
+                          3401,
+                          3402,
+                          3403,
+                          3404,
+                          3405,
+                          3410,
+                          3420,
+                          3421,
+                          3425
+                        ]
                       },
                       "fieldTypeText": {
                         "type": "string",
@@ -4066,7 +4427,8 @@
                       },
                       "id": {
                         "type": "string",
-                        "description": "Bölüm Id'si"
+                        "description": "Bölüm Id'si",
+                        "format": "uuid"
                       },
                       "createdOn": {
                         "type": "string",
@@ -4087,7 +4449,11 @@
                     }
                   }
                 }
-              }
+              },
+              "required": [
+                "addressTypeId",
+                "companyId"
+              ]
             }
           },
           "contacts": {
@@ -4122,7 +4488,8 @@
                 },
                 "companyId": {
                   "type": "string",
-                  "description": "Bağlı olduğu firma Id'si"
+                  "description": "Bağlı olduğu firma Id'si",
+                  "format": "uuid"
                 },
                 "companyName": {
                   "type": "string",
@@ -4136,17 +4503,10 @@
                   "type": "string",
                   "description": "Durum kodu açıklaması"
                 },
-                "fileList": {
-                  "type": "string",
-                  "description": "Dosya listesi"
-                },
-                "files": {
-                  "type": "string",
-                  "description": "Dosyalar"
-                },
                 "email": {
                   "type": "string",
-                  "description": "Firma temsilcisi veya sorumlusunun email adresi"
+                  "description": "Firma temsilcisi veya sorumlusunun email adresi",
+                  "format": "email"
                 },
                 "gsm": {
                   "type": "string",
@@ -4158,7 +4518,8 @@
                 },
                 "id": {
                   "type": "string",
-                  "description": "Firma temsilcisi veya sorumlusu Id'si"
+                  "description": "Firma temsilcisi veya sorumlusu Id'si",
+                  "format": "uuid"
                 },
                 "createdOn": {
                   "type": "string",
@@ -4196,7 +4557,20 @@
                       },
                       "filedTypeId": {
                         "type": "integer",
-                        "description": "Bölüm tipi kodu."
+                        "description": "Bölüm tipi kodu.\n3400 - Telefon\n3401 - Gsm\n3402 - Faks\n3403 - Email\n3404 - Web Sitesi\n3405 - Social Medya Hesabı\n3410 - Bulunduğu Şube\n3420 - Yönetim Kurulu Başkanı\n3421 - Genel Müdür\n3425 - Yönetici Asistanı",
+                        "format": "int32",
+                        "enum": [
+                          3400,
+                          3401,
+                          3402,
+                          3403,
+                          3404,
+                          3405,
+                          3410,
+                          3420,
+                          3421,
+                          3425
+                        ]
                       },
                       "fieldTypeText": {
                         "type": "string",
@@ -4208,7 +4582,8 @@
                       },
                       "id": {
                         "type": "string",
-                        "description": "Bölüm Id'si"
+                        "description": "Bölüm Id'si",
+                        "format": "uuid"
                       },
                       "createdOn": {
                         "type": "string",
@@ -4247,15 +4622,18 @@
                     },
                     "email": {
                       "type": "string",
-                      "description": "Asistan e-posta adresi"
+                      "description": "Asistan e-posta adresi",
+                      "format": "email"
                     },
                     "contactId": {
                       "type": "string",
-                      "description": "Bağlı olduğu firma temsilcisi Id'si"
+                      "description": "Bağlı olduğu firma temsilcisi Id'si",
+                      "format": "uuid"
                     },
                     "companyId": {
                       "type": "string",
-                      "description": "Bağlı olduğu firma Id'si"
+                      "description": "Bağlı olduğu firma Id'si",
+                      "format": "uuid"
                     },
                     "companyName": {
                       "type": "string",
@@ -4279,7 +4657,8 @@
                     },
                     "id": {
                       "type": "string",
-                      "description": "Asistan Id'si"
+                      "description": "Asistan Id'si",
+                      "format": "uuid"
                     },
                     "createdOn": {
                       "type": "string",
@@ -4302,7 +4681,17 @@
               }
             }
           }
-        }
+        },
+        "required": [
+          "id",
+          "companyTypeId",
+          "isExporter",
+          "statusId",
+          "createdOn",
+          "createdBy",
+          "modifiedOn",
+          "modifiedBy"
+        ]
       },
       "ListRequest": {
         "title": "ListRequest",
@@ -4311,17 +4700,28 @@
         "properties": {
           "page": {
             "type": "integer",
-            "description": "Liste sayfasını belirtir. (1. sayfa 2. sayfa gibi)"
+            "description": "Liste sayfasını belirtir. (1. sayfa 2. sayfa gibi)",
+            "default": 1,
+            "format": "int32"
           },
           "pageSize": {
             "type": "integer",
-            "description": "Bir sayfada kaç adet kayıt getireceğini belirler."
+            "description": "Bir sayfada kaç adet kayıt getireceğini belirler.",
+            "default": 50,
+            "format": "int32"
           },
           "sorts": {
             "type": "array",
             "description": "Sıralama parametreleridir. Herhangi bir alana göre artan veya azalan şeklinde sıralama yapabilmek için kullanılır.",
             "items": {
               "$ref": "#/components/schemas/ListRequestSortDescriptor"
+            }
+          },
+          "filters": {
+            "type": "array",
+            "description": "Herhangi bir alana göre filtreleme yapmak için kullanılır.",
+            "items": {
+              "$ref": "#/components/schemas/ListRequestFilterDescriptor"
             }
           }
         },
@@ -4341,12 +4741,43 @@
           },
           "sortDirection": {
             "type": "integer",
-            "description": "Sıralama yönünü belirler.(Artan veya azalan gibi)"
+            "description": "Sıralama yönünü belirler.(Artan veya azalan gibi) \n-1 -> Belirtilen alana göre azalan\n0 -> Belirtilen alana göre artan",
+            "minimum": -1,
+            "maximum": 0,
+            "exclusiveMinimum": false,
+            "exclusiveMaximum": false,
+            "default": 0,
+            "format": "int32"
           }
         },
         "required": [
           "fieldName",
           "sortDirection"
+        ]
+      },
+      "ListRequestFilterDescriptor": {
+        "title": "ListRequestFilterDescriptor",
+        "type": "object",
+        "description": "Filtreme için kullanılan modeldir.",
+        "properties": {
+          "fieldName": {
+            "type": "string",
+            "description": "Filtreleme yapılacak alanın adıdır. Pascalcase olarak yazılmalıdır.",
+            "example": "CreatedOn"
+          },
+          "value": {
+            "type": "string",
+            "description": "Filtrelenecek alanın değeri"
+          },
+          "operator": {
+            "type": "string",
+            "description": "Alabileceği değerler aşağıdaki gibidir. Filtrelemeyi neye göre yapacağını belirlemek için kullanılır. Default değeri 'eq' değeridir.\n'eq' -> Girilen Value değerine eşit olan,\n'neq' -> Girilen Value değerine eşit olmayan,\n'nin' -> Girilen Value değerini içermeyen,\n'in' -> Girilen Value değerini içeren,\n'sw' -> Girilen Value değeri ile başlayan,\n'gt' -> Girilen Value değerinden büyük olan,\n'gte' -> Girilen Value değerinden büyük veya eşit olan\n'lt' -> Girilen Value değerinden küçük olan,\n'lte' -> Girilen Value değerinden küçük veya eşit olan",
+            "default": "eq"
+          }
+        },
+        "required": [
+          "fieldName",
+          "value"
         ]
       }
     },
