@@ -3697,7 +3697,7 @@
           }
         },
         "operationId": "get-company-id",
-        "description": "{id} parametresi yerine firmaya ait id girildiğinde o firmaya ait \n -Firma Bilgileri\n -Kanuni Merkez\n -Şubeler\n -İletişim Bilgileri\n -Firma Temsilcileri\n -Firma sorumluları\nbilgileri gelir."
+        "description": "{id} parametresi yerine firmaya ait id girildiğinde o firmaya ait \n- Firma Bilgileri\n- Kanuni Merkez\n- Şubeler\n- İletişim Bilgileri\n- Firma Temsilcileri\n- Firma sorumluları\nbilgileri gelir."
       }
     }
   },
