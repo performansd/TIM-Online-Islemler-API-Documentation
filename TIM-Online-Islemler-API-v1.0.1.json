@@ -4771,7 +4771,7 @@
           },
           "operator": {
             "type": "string",
-            "description": "Alabileceği değerler aşağıdaki gibidir. Filtrelemeyi neye göre yapacağını belirlemek için kullanılır. Default değeri 'eq' değeridir.\n'eq' -> Girilen Value değerine eşit olan,\n'neq' -> Girilen Value değerine eşit olmayan,\n'nin' -> Girilen Value değerini içermeyen,\n'in' -> Girilen Value değerini içeren,\n'sw' -> Girilen Value değeri ile başlayan,\n'gt' -> Girilen Value değerinden büyük olan,\n'gte' -> Girilen Value değerinden büyük veya eşit olan\n'lt' -> Girilen Value değerinden küçük olan,\n'lte' -> Girilen Value değerinden küçük veya eşit olan",
+            "description": "Alabileceği değerler aşağıdaki gibidir. Filtrelemeyi neye göre yapacağını belirlemek için kullanılır. \n\nDefault değeri 'eq' değeridir.\n- 'eq' -> Girilen Value değerine eşit olan,\n- 'neq' -> Girilen Value değerine eşit olmayan,\n- 'nin' -> Girilen Value değerini içermeyen,\n- 'in' -> Girilen Value değerini içeren,\n- 'sw' -> Girilen Value değeri ile başlayan,\n- 'gt' -> Girilen Value değerinden büyük olan,\n- 'gte' -> Girilen Value değerinden büyük veya eşit olan\n- 'lt' -> Girilen Value değerinden küçük olan,\n- 'lte' -> Girilen Value değerinden küçük veya eşit olan",
             "default": "eq"
           }
         },
